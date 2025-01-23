@@ -1,12 +1,12 @@
 === Order Notification for WooCommerce – Get Audio Alert on new Orders ===
 	Contributors: jaedm97,pluginbazar
 	Donate link: https://pluginbazar.com/
-	Tags: Order checker, order listener, Order Alert, WooCommerce Alert, WooCommerce Alarm, Order sound notification
+	Tags: Order checker, order listener, Order Alert, WooCommerce Alert, Order sound notification
 	Requires at least: 5.0
 	Requires WooCommerce: 4.0
-	Tested up to: 6.5.3
-	Tested up to WooCommerce: 8.8.3
-	Stable tag: 3.5.4
+	Tested up to: 6.7
+	Tested up to WooCommerce: 9.6
+	Stable tag: 3.5.5
 	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -180,3 +180,7 @@ Admin can add some conditions/rules to check special orders. Like - Minimum orde
 
 = 3.5.4 =
 * 09/05/2024 - UPDATE - WordPress, WooCommerce version update and basic test.
+
+= 3.5.5 =
+* 24/01/2025 - UPDATE - Added compatibility support with latest WordPress & WooCommerce.
+
