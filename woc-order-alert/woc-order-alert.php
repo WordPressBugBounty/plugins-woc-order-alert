@@ -3,7 +3,7 @@
 	Plugin Name: Order Notification for WooCommerce
 	Plugin URI: https://pluginbazar.com/
 	Description: Play sound as notification instantly on new order in your WooCommerce store.
-	Version: 3.5.5
+	Version: 3.5.6
 	Author: Pluginbazar
 	Text Domain: woc-order-alert
 	Author URI: https://pluginbazar.com/
@@ -23,7 +23,7 @@ defined( 'OLISTENER_DOCS_URL' ) || define( 'OLISTENER_DOCS_URL', 'https://docs.p
 defined( 'OLISTENER_CONTACT_URL' ) || define( 'OLISTENER_CONTACT_URL', 'https://pluginbazar.com/contact/' );
 defined( 'OLISTENER_REVIEW_URL' ) || define( 'OLISTENER_REVIEW_URL', 'https://wordpress.org/support/plugin/woc-order-alert/reviews/?filter=5#new-post' );
 defined( 'OLISTENER_DATA_TABLE' ) || define( 'OLISTENER_DATA_TABLE', $wpdb->prefix . 'woocommerce_order_listener' );
-defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.5.5' );
+defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.5.6' );
 
 
 if ( ! function_exists( 'olistener_is_plugin_active' ) ) {
