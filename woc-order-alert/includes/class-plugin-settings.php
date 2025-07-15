@@ -2,7 +2,7 @@
 /**
  * Settings class
  *
- * @author Pluginbazar
+ * @author StackWC
  */
 
 use WPDK\Utils;
@@ -16,7 +16,7 @@ class OLISTENER_Settings {
 	 */
 	public function __construct() {
 
-		global $wooorderalert_wpdk;
+		global $olistener_wpdk;
 
 		// Generate settings page
 		$settings_args = array(
@@ -32,7 +32,7 @@ class OLISTENER_Settings {
 			'show_reset_all'     => false,
 			'show_reset_section' => false,
 			'product_url'        => OLISTENER_PLUGIN_LINK,
-			'product_version'    => $wooorderalert_wpdk->plugin_version,
+			'product_version'    => $olistener_wpdk->plugin_version,
 			'quick_links'        => array(
 				'supports' => array(
 					'label' => esc_html__( 'Supports', 'woc-order-alert' ),
@@ -46,7 +46,7 @@ class OLISTENER_Settings {
 			'pro_url'            => OLISTENER_PLUGIN_LINK,
 		);
 
-		WPDK_Settings::createSettingsPage( $wooorderalert_wpdk->plugin_unique_id, $settings_args, $this->get_settings_pages() );
+		WPDK_Settings::createSettingsPage( $olistener_wpdk->plugin_unique_id, $settings_args, $this->get_settings_pages() );
 	}
 
 
@@ -80,6 +80,7 @@ class OLISTENER_Settings {
 							'subtitle' => esc_html__( 'Update your sound preference.', 'woc-order-alert' ),
 							'type'     => 'media',
 							'url'      => false,
+							'availability' => olistener()->is_pro() ? '' : 'pro',
 						),
 						array(
 							'id'          => 'olistener_req_per_minute',

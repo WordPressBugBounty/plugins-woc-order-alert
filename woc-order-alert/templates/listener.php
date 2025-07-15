@@ -1,10 +1,8 @@
 <?php
 /*
-* @Author 		Pluginbazar
-* Copyright: 	2015 Pluginbazar
+* @Author 		StackWC
+* Copyright: 	2015 StackWC
 */
-
-use Pluginbazar\Utils;
 
 defined( 'ABSPATH' ) || exit;
 

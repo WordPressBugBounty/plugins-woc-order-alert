@@ -68,9 +68,6 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			// Init action
 			do_action( 'pb_settings_init' );
 
-			// Setup textdomain
-			self::textdomain();
-
 			add_action( 'after_setup_theme', array( 'WPDK_Settings', 'setup' ) );
 			add_action( 'init', array( 'WPDK_Settings', 'setup' ) );
 			add_action( 'switch_theme', array( 'WPDK_Settings', 'setup' ) );
@@ -495,11 +492,6 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 				}
 			}
 
-		}
-
-		// Setup textdomain
-		public static function textdomain() {
-			load_textdomain( 'pb_settings', self::$dir . '/languages/' . get_locale() . '.mo' );
 		}
 
 		// Set all of used fields

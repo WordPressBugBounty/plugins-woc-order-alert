@@ -2,7 +2,7 @@
 /**
  * Class Hooks
  *
- * @author Pluginbazar
+ * @author StackWC
  */
 
 use WPDK\Utils;
@@ -22,7 +22,6 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 			add_action( 'init', array( $this, 'register_everything' ) );
 			add_action( 'admin_init', array( $this, 'add_capabilities_to_shop_manager' ) );
 			add_action( 'WPDK_Settings/section/order_listener', array( $this, 'render_listener' ) );
-			add_action( 'rest_api_init', array( $this, 'register_endpoints' ) );
 			add_action( 'wp_ajax_olistener', array( $this, 'olistener_listening' ) );
 			add_action( 'admin_bar_menu', array( $this, 'handle_admin_bar_menu' ), 9999, 1 );
 
@@ -32,6 +31,8 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 			add_filter( 'plugin_action_links_' . OLISTENER_PLUGIN_FILE, array( $this, 'add_plugin_actions' ), 10, 2 );
 
 			add_action( 'admin_footer', array( $this, 'add_notification_popup_markup' ) );
+
+			add_action( 'woocommerce_new_order', array( $this, 'woocommerce_new_order' ), 10, 2 );
 		}
 
 
@@ -83,18 +84,10 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 		 */
 		function add_plugin_actions( $links ) {
 
-			$action_links = array_merge( array(
-				'notifier' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=olistener' ), esc_html__( 'Get Notification', 'woc-order-alert' ) ),
-				'settings' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=olistener#tab=settings' ), esc_html__( 'Settings', 'woc-order-alert' ) ),
-			), $links );
-
-//			global $wooorderalert_wpdk;
-//
-//			if ( ! $wooorderalert_wpdk->license()->is_activate_pro() ) {
-//				$action_links['go-pro'] = sprintf( '<a target="_blank" class="plugin-meta-buy" href="%s">%s</a>', esc_url( OLISTENER_PLUGIN_LINK ), esc_html__( 'Go Pro', 'woc-order-alert' ) );
-//			}
-
-			return $action_links;
+			return array_merge( $links, array(
+				'notifier' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=olistener' ), esc_html__( 'Notifier', 'woc-order-alert' ) ),
+				// 'settings' => sprintf( '<a href="%s">%s</a>', admin_url( 'admin.php?page=olistener#tab=settings' ), esc_html__( 'Settings', 'woc-order-alert' ) ),
+			) );
 		}
 
 
@@ -221,20 +214,15 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 		 *
 		 * @param WP_REST_Request $data
 		 */
-		function handle_payload( WP_REST_Request $data ) {
+		function woocommerce_new_order( $order_id, WC_Order $order ) {
 
 			global $wpdb;
 
-			$json_params = $data->get_json_params();
+			$billing_name = sprintf( '%s %s', $order->get_billing_first_name(), $order->get_billing_last_name() );
 
-			$json_params   = is_array( $json_params ) ? $json_params : array();
-			$billing       = olistener()->get_args_option( 'billing', array(), $json_params );
-			$billing_name  = sprintf( '%s %s', olistener()->get_args_option( 'first_name', '', $billing ), olistener()->get_args_option( 'last_name', '', $billing ) );
-			$order_id      = sanitize_text_field( olistener()->get_args_option( 'id', '', $json_params ) );
-			$should_notify = true;
-			if ( ! empty( $order_id ) && apply_filters( 'olistener_filters_should_notify', $should_notify, $order_id, $json_params ) ) {
+			if ( apply_filters( 'olistener_filters_should_notify', true, $order_id, $order ) ) {
 
-				$order_total  = sanitize_text_field( olistener()->get_args_option( 'total', '', $json_params ) );
+				$order_total  = $order->get_total();
 				$all_orders   = $wpdb->get_results(
 					$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_listener WHERE order_id = %d", $order_id )
 				);
@@ -260,18 +248,6 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 
 
 		/**
-		 * Register endpoints
-		 */
-		function register_endpoints() {
-			register_rest_route( 'olistener', '/new', array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'handle_payload' ),
-				'permission_callback' => '__return_true',
-			) );
-		}
-
-
-		/**
 		 * Render
 		 */
 		function render_listener() {
@@ -288,13 +264,6 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 			 * Create table if not exists
 			 */
 			olistener_create_table();
-
-			if ( function_exists( 'WC' ) ) {
-				/**
-				 * Create webhook
-				 */
-				olistener_create_webhooks();
-			}
 		}
 	}
 }

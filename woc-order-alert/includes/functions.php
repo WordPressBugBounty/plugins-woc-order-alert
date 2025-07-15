@@ -2,8 +2,8 @@
 /**
  * All Functions
  *
- * @author Pluginbazar
- * @copyright 2020 Pluginbazar
+ * @author StackWC
+ * @copyright 2020 StackWC
  */
 
 use WPDK\Utils;
@@ -43,44 +43,6 @@ if ( ! function_exists( 'olistener_create_table' ) ) {
 		}
 
 		maybe_create_table( OLISTENER_DATA_TABLE, $sql );
-	}
-}
-
-
-if ( ! function_exists( 'olistener_create_webhooks' ) ) {
-	/**
-	 * Create webhooks if not exists
-	 */
-	function olistener_create_webhooks() {
-
-		// Webhook on Create
-		try {
-			$webhook_id  = olistener()->get_option( 'olistener_webhook_id' );
-			$def_webhook = wc_get_webhook( $webhook_id );
-
-			// Set status to active if the webhook is not activated by default
-			if ( $def_webhook instanceof WC_Webhook && $def_webhook->get_status() != 'active' ) {
-				$def_webhook->set_status( 'active' );
-				$def_webhook->save();
-
-				return;
-			}
-
-			if ( ! $def_webhook instanceof WC_Webhook ) {
-				$webhook = new WC_Webhook();
-				$webhook->set_name( 'Order Notification - On Create' );
-				$webhook->set_user_id( get_current_user_id() );
-				$webhook->set_topic( 'order.created' );
-				$webhook->set_delivery_url( site_url( 'wp-json/olistener/new' ) );
-				$webhook->set_status( 'active' );
-				$new_webhook_id = $webhook->save();
-
-				if ( $new_webhook_id ) {
-					update_option( 'olistener_webhook_id', $new_webhook_id );
-				}
-			}
-		} catch ( Exception $e ) {
-		}
 	}
 }
 

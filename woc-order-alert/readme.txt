@@ -1,16 +1,18 @@
 === Order Notification for WooCommerce – Get Audio Alert on new Orders ===
-	Contributors: jaedm97,pluginbazar
-	Donate link: https://pluginbazar.com/
-	Tags: Order checker, order listener, Order Alert, WooCommerce Alert, Order sound notification
-	Requires at least: 5.0
-	Requires WooCommerce: 4.0
-	Tested up to: 6.7
-	Tested up to WooCommerce: 9.6
-	Stable tag: 3.5.6
-	License: GPLv2 or later
-	License URI: http://www.gnu.org/licenses/gpl-2.0.html
+   Contributors: stackwc, ilmosys
+   Donate link: https://stackwc.com
+   Tags: Order checker, order listener, Order Alert, WooCommerce Alert, Order sound notification
+   Requires at least: 5.6
+   Tested up to: 6.8
+   Tested up to WooCommerce: 9.9.5
+   Stable tag: 3.6.0
+   Requires PHP: 7.1
+   Requires WooCommerce: 7.2
+   Text Domain: woc-order-alert
+   License: GPLv3
+   License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-	Get notification with customized sound on speaker instantly when your store receive an order.
+    Get notification with customized sound on speaker instantly when your store receive an order.
 
 == Description ==
 
@@ -20,7 +22,7 @@ This order listener plugin will make things awesome for WooCommerce store admin.
 
 Admin can add some conditions/rules to check special orders. Like - Minimum order amount, Check for special product etc.
 
-[TRY DEMO](https://app.instawp.io/launch?t=order-notification-for-woocommerce&d=v2) | [BUY PRO](https://pluginbazar.com/buy/order-notification-for-woocommerce) | [SUPPORT](https://pluginbazar.com/support/)
+[BUY PRO](https://stackwc.com/plugins/woc-order-alert/) | [SUPPORT](https://stackwc.com/support/)
 
 
 ### Plugin Overview
@@ -187,4 +189,8 @@ Admin can add some conditions/rules to check special orders. Like - Minimum orde
 = 3.5.6 =
 * 16/04/2025 - FIX - Tested with latest WordPress version.
 * 16/04/2025 - FIX - Updated some links.
+
+= 3.6.0 =
+* 12/07/2025 - FIX - Tested with latest WordPress version.
+* 12/07/2025 - FIX - Fixed notification issue.
 

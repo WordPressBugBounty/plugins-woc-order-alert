@@ -2,7 +2,7 @@
 /**
  * Class Functions
  *
- * @author Pluginbazar
+ * @author StackWC
  */
 
 use WPDK\Utils;
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Olistener_functions' ) ) {
 		 * @return bool
 		 */
 		function is_pro() {
-			return apply_filters( 'olistener_filters_is_pro', class_exists( 'OlistenerPro' ) );
+			return wcoa_fs()->can_use_premium_code__premium_only();
 		}
 
 		/**
