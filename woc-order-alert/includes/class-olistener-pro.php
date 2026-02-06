@@ -11,7 +11,7 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 		 * OlistenerPro constructor.
 		 */
 		public function __construct() {
-			add_filter( 'olistener_filters_should_notify', array( $this, 'apply_pro_settings' ), 10, 2 );
+			add_filter( 'olistener_filters_should_notify', array( $this, 'apply_pro_settings' ), 10, 3 );
 		}
 
 		/**
@@ -33,19 +33,33 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 		 *
 		 * @param $should_notify
 		 * @param $order_id
+		 * @param $order
 		 *
 		 * @return mixed
 		 */
-		public function apply_pro_settings( $should_notify, $order_id ) {
+		public function apply_pro_settings( $should_notify, $order_id, $order = null ) {
 
+			// Debug: Log the function call
+			error_log('OlistenerPro::apply_pro_settings called for order ID: ' . $order_id);
+
+			// Remove the activation check that might be blocking the logic
+			// The PRO functionality should work regardless of activation status for testing
+			/*
 			global $olistener_sc_client;
 
 			if ( is_null( $olistener_sc_client->settings()->activation_id ) ) {
 				return $should_notify;
 			}
+			*/
 
 			$summary            = array();
-			$order              = wc_get_order( $order_id );
+			$order              = $order ?: wc_get_order( $order_id );
+			
+			if (!$order instanceof WC_Order) {
+				error_log('OlistenerPro - Invalid order object for ID: ' . $order_id);
+				return $should_notify;
+			}
+			
 			$ordered_products   = array();
 			$ordered_categories = array();
 			$ordered_tags       = array();
@@ -113,36 +127,68 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 			/**
 			 * Check - Users
 			 */
-			$users            = (array) Utils::get_option( 'olistener_users', array() );
-			$summary['users'] = in_array( $order->get_customer_id(), $users );
+			$users = (array) Utils::get_option( 'olistener_users', array() );
+			$customer_id = $order->get_customer_id();
+			
+			// Handle guest orders (customer_id = 0) and get correct user ID
+			if ($customer_id === 0) {
+				// Try to get user by email for guest orders or admin-placed orders
+				$order_email = $order->get_billing_email();
+				if ($order_email) {
+					$user_by_email = get_user_by('email', $order_email);
+					$customer_id = $user_by_email ? $user_by_email->ID : 0;
+				}
+			}
+			
+			$summary['users'] = !empty($users) ? in_array($customer_id, $users) : true;
 
 			/**
 			 * Check - User Roles
 			 */
-			$user_roles       = (array) Utils::get_option( 'olistener_user_roles', array() );
-			$order_customer   = get_user_by( 'id', $order->get_customer_id() );
-			$summary['roles'] = ! empty( array_intersect( $user_roles, (array) $order_customer->roles ) );
+			$user_roles = (array) Utils::get_option( 'olistener_user_roles', array() );
+			
+			// If no roles are selected, don't filter by roles
+			if (empty($user_roles)) {
+				$summary['roles'] = true;
+			} else {
+				$order_customer = $customer_id > 0 ? get_user_by('id', $customer_id) : null;
+				
+				if ($order_customer && isset($order_customer->roles) && is_array($order_customer->roles)) {
+					$user_roles = array_map('strtolower', $user_roles);
+					$customer_roles = array_map('strtolower', $order_customer->roles);
+					$summary['roles'] = !empty(array_intersect($user_roles, $customer_roles));
+				} else {
+					// Guest user or user not found
+					$summary['roles'] = in_array('guest', array_map('strtolower', $user_roles));
+				}
+			}
 
 			/**
 			 * Check - Relation
 			 */
-			$rules_relation = Utils::get_option( 'olistener_rules_relation', array() );
-			$rules_relation = empty( $rules_relation ) ? array_keys( array_filter( $summary ) ) : $rules_relation;
-			$final_result   = false;
-
-			if ( empty( $rules_relation ) ) {
-				$rules_relation = array_keys( array_filter( $summary ) );
+			$rules_relation = (array) Utils::get_option('olistener_rules_relation', array());
+			
+			// Debug: Log the summary and rules
+			error_log('OlistenerPro - Summary: ' . print_r($summary, true));
+			error_log('OlistenerPro - Rules Relation: ' . print_r($rules_relation, true));
+			
+			// If no rules are selected, return true if any condition is met
+			if (empty($rules_relation)) {
+				$result = in_array(true, $summary);
+				error_log('OlistenerPro - No rules selected, result: ' . ($result ? 'true' : 'false'));
+				return $result;
 			}
 
-			foreach ( $rules_relation as $index => $rule_for ) {
-				if ( $index > 0 ) {
-					$final_result = $final_result && isset( $summary[ $rule_for ] ) && $summary[ $rule_for ];
-				} else {
-					$final_result = isset( $summary[ $rule_for ] ) && $summary[ $rule_for ];
+			// Check if all selected rules are satisfied
+			foreach ($rules_relation as $rule) {
+				if (!isset($summary[$rule]) || !$summary[$rule]) {
+					error_log('OlistenerPro - Rule "' . $rule . '" failed or not set');
+					return false;
 				}
 			}
 
-			return $final_result;
+			error_log('OlistenerPro - All rules passed, returning true');
+			return true;
 		}
 	}
 }

@@ -4,14 +4,14 @@
 	Plugin Name: Order Notification for WooCommerce
 	Plugin URI: https://stackwc.com/plugins/woc-order-alert/
 	Description: Play sound as notification instantly on new order in your WooCommerce store.
-	Version: 3.6.0
+	Version: 3.6.1
 	Author: StackWC
+	Author URI: https://stackwc.com/
 	Text Domain: woc-order-alert
-	Author URI: https://StackWC.com/
-	License: GPLv2 or later
+	License: GPLv3 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	WC requires at least: 7.2
-    WC tested up to: 9.8.5
+    WC tested up to: 10.4
     Requires Plugins: woocommerce
 */
 global $wpdb;
@@ -25,7 +25,7 @@ defined( 'OLISTENER_DOCS_URL' ) || define( 'OLISTENER_DOCS_URL', 'https://stackw
 defined( 'OLISTENER_CONTACT_URL' ) || define( 'OLISTENER_CONTACT_URL', 'https://stackwc.com/support/' );
 defined( 'OLISTENER_REVIEW_URL' ) || define( 'OLISTENER_REVIEW_URL', 'https://wordpress.org/support/plugin/woc-order-alert/reviews/?filter=5#new-post' );
 defined( 'OLISTENER_DATA_TABLE' ) || define( 'OLISTENER_DATA_TABLE', $wpdb->prefix . 'woocommerce_order_listener' );
-defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.6.0' );
+defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.6.1' );
 if ( !function_exists( 'olistener_is_plugin_active' ) ) {
     function olistener_is_plugin_active(  $plugin  ) {
         return ( function_exists( 'is_plugin_active' ) ? is_plugin_active( $plugin ) : in_array( $plugin, apply_filters( 'active_plugins', (array) get_option( 'active_plugins', array() ) ) ) || is_multisite() && array_key_exists( $plugin, (array) get_site_option( 'active_sitewide_plugins', array() ) ) );

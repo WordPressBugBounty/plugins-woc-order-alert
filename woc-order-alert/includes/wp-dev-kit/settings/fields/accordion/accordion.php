@@ -1,4 +1,4 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Cannot access directly.
 /**
  *
  * Field: accordion

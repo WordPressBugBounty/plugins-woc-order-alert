@@ -1,4 +1,4 @@
-<?php if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
+<?php if ( ! defined( 'ABSPATH' ) ) exit; // Cannot access directly.
 
 if ( ! function_exists( 'pb_settings_get_google_fonts' ) ) {
   function pb_settings_get_google_fonts() {
