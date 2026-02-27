@@ -22,11 +22,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_border' ) ) {
         'bottom_icon'        => '<i class="fas fa-long-arrow-alt-down"></i>',
         'right_icon'         => '<i class="fas fa-long-arrow-alt-right"></i>',
         'all_icon'           => '<i class="fas fa-arrows-alt"></i>',
-        'top_placeholder'    => esc_html__( 'top' ),
-        'right_placeholder'  => esc_html__( 'right' ),
-        'bottom_placeholder' => esc_html__( 'bottom' ),
-        'left_placeholder'   => esc_html__( 'left' ),
-        'all_placeholder'    => esc_html__( 'all' ),
+        'top_placeholder'    => esc_html__( 'top', 'woc-order-alert' ),
+        'right_placeholder'  => esc_html__( 'right', 'woc-order-alert' ),
+        'bottom_placeholder' => esc_html__( 'bottom', 'woc-order-alert' ),
+        'left_placeholder'   => esc_html__( 'left', 'woc-order-alert' ),
+        'all_placeholder'    => esc_html__( 'all', 'woc-order-alert' ),
         'top'                => true,
         'left'               => true,
         'bottom'             => true,
@@ -48,22 +48,22 @@ if ( ! class_exists( 'WPDK_Settings_Field_border' ) ) {
       );
 
       $border_props = array(
-        'solid'     => esc_html__( 'Solid' ),
-        'dashed'    => esc_html__( 'Dashed' ),
-        'dotted'    => esc_html__( 'Dotted' ),
-        'double'    => esc_html__( 'Double' ),
-        'inset'     => esc_html__( 'Inset' ),
-        'outset'    => esc_html__( 'Outset' ),
-        'groove'    => esc_html__( 'Groove' ),
-        'ridge'     => esc_html__( 'ridge' ),
-        'none'      => esc_html__( 'None' )
+        'solid'     => esc_html__( 'Solid', 'woc-order-alert' ),
+        'dashed'    => esc_html__( 'Dashed', 'woc-order-alert' ),
+        'dotted'    => esc_html__( 'Dotted', 'woc-order-alert' ),
+        'double'    => esc_html__( 'Double', 'woc-order-alert' ),
+        'inset'     => esc_html__( 'Inset', 'woc-order-alert' ),
+        'outset'    => esc_html__( 'Outset', 'woc-order-alert' ),
+        'groove'    => esc_html__( 'Groove', 'woc-order-alert' ),
+        'ridge'     => esc_html__( 'Ridge', 'woc-order-alert' ),
+        'none'      => esc_html__( 'None', 'woc-order-alert' )
       );
 
       $default_value = ( ! empty( $this->field['default'] ) ) ? wp_parse_args( $this->field['default'], $default_value ) : $default_value;
 
       $value = wp_parse_args( $this->value, $default_value );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings--inputs" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
 
@@ -72,8 +72,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_border' ) ) {
         $placeholder = ( ! empty( $args['all_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args['all_placeholder'] ) .'"' : '';
 
         echo '<div class="wpdk_settings--input">';
-        echo ( ! empty( $args['all_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['all_icon'] .'</span>' : '';
-        echo '<input type="number" name="'. esc_attr( $this->field_name( '[all]' ) ) .'" value="'. esc_attr( $value['all'] ) .'"'. $placeholder .' class="wpdk_settings-input-number wpdk_settings--is-unit" step="any" />';
+        echo ( ! empty( $args['all_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['all_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<input type="number" name="'. esc_attr( $this->field_name( '[all]' ) ) .'" value="'. esc_attr( $value['all'] ) .'"'. $placeholder .' class="wpdk_settings-input-number wpdk_settings--is-unit" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo ( ! empty( $args['unit'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
         echo '</div>';
 
@@ -94,8 +94,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_border' ) ) {
           $placeholder = ( ! empty( $args[$property.'_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args[$property.'_placeholder'] ) .'"' : '';
 
           echo '<div class="wpdk_settings--input">';
-          echo ( ! empty( $args[$property.'_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args[$property.'_icon'] .'</span>' : '';
-          echo '<input type="number" name="'. esc_attr( $this->field_name( '['. $property .']' ) ) .'" value="'. esc_attr( $value[$property] ) .'"'. $placeholder .' class="wpdk_settings-input-number wpdk_settings--is-unit" step="any" />';
+          echo ( ! empty( $args[$property.'_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args[$property.'_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+          echo '<input type="number" name="'. esc_attr( $this->field_name( '['. $property .']' ) ) .'" value="'. esc_attr( $value[$property] ) .'"'. $placeholder .' class="wpdk_settings-input-number wpdk_settings--is-unit" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo ( ! empty( $args['unit'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
           echo '</div>';
 
@@ -120,12 +120,12 @@ if ( ! class_exists( 'WPDK_Settings_Field_border' ) ) {
         $default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="'. esc_attr( $default_value['color'] ) .'"' : '';
         echo '<div class="wpdk_settings--color">';
         echo '<div class="wpdk_settings-field-color">';
-        echo '<input type="text" name="'. esc_attr( $this->field_name( '[color]' ) ) .'" value="'. esc_attr( $value['color'] ) .'" class="wpdk_settings-color"'. $default_color_attr .' />';
+        echo '<input type="text" name="'. esc_attr( $this->field_name( '[color]' ) ) .'" value="'. esc_attr( $value['color'] ) .'" class="wpdk_settings-color"'. $default_color_attr .' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '</div>';
         echo '</div>';
       }
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

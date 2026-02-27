@@ -20,7 +20,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
 
     public function render() {
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       $args                  = wp_parse_args( $this->field, array(
         'font_family'        => true,
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
         'text_decoration'    => false,
         'custom_style'       => false,
         'compact'            => false,
-        'exclude'            => '',
+        'exclude'            => '', // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
         'unit'               => 'px',
         'line_height_unit'   => '',
         'preview_text'       => 'The quick brown fox jumps over the lazy dog',
@@ -93,8 +93,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Font Family
           if ( ! empty( $args['font_family'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Family' ) .'</div>';
-            echo $this->create_select( array( $this->value['font-family'] => $this->value['font-family'] ), 'font-family', esc_html__( 'Select a font' ) );
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Family', 'woc-order-alert' ) .'</div>';
+            echo $this->create_select( array( $this->value['font-family'] => $this->value['font-family'] ), 'font-family', esc_html__( 'Select a font', 'woc-order-alert' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '</div>';
           }
 
@@ -102,8 +102,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Backup Font Family
           if ( ! empty( $args['backup_font_family'] ) ) {
             echo '<div class="wpdk_settings--block wpdk_settings--block-backup-font-family hidden">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Backup Font Family' ) .'</div>';
-            echo $this->create_select( apply_filters( 'pb_settings_field_typography_backup_font_family', array(
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Backup Font Family', 'woc-order-alert' ) .'</div>';
+            echo $this->create_select( apply_filters( 'pb_settings_field_typography_backup_font_family', array(  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
               'Arial, Helvetica, sans-serif',
               "'Arial Black', Gadget, sans-serif",
               "'Comic Sans MS', cursive, sans-serif",
@@ -116,7 +116,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
               "'Lucida Console', Monaco, monospace",
               'Georgia, serif',
               'Palatino Linotype'
-            ) ), 'backup-font-family', esc_html__( 'Default' ) );
+            ) ), 'backup-font-family', esc_html__( 'Default', 'woc-order-alert' ) ); 
             echo '</div>';
           }
 
@@ -127,9 +127,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
             //
             // Font Style Select
             echo '<div class="wpdk_settings--block wpdk_settings--block-font-style hidden">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Style', 'pb_settings') .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Style', 'woc-order-alert' ) .'</div>';
             echo '<select class="wpdk_settings--font-style-select" data-placeholder="Default">';
-            echo '<option value="">'. ( ! $this->chosen ? esc_html__( 'Default' ) : '' ) .'</option>';
+            echo '<option value="">'. ( ! $this->chosen ? esc_html__( 'Default', 'woc-order-alert' ) : '' ) .'</option>';
             if ( ! empty( $this->value['font-weight'] ) || ! empty( $this->value['font-style'] ) ) {
               echo '<option value="'. esc_attr( strtolower( $this->value['font-weight'] . $this->value['font-style'] ) ) .'" selected></option>';
             }
@@ -141,9 +141,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
             // Extra Font Style Select
             if ( ! empty( $args['extra_styles'] ) ) {
               echo '<div class="wpdk_settings--block-extra-styles hidden">';
-              echo ( ! $this->chosen ) ? '<div class="wpdk_settings--title">'. esc_html__( 'Load Extra Styles' ) .'</div>' : '';
-              $placeholder = ( $this->chosen ) ? esc_html__( 'Load Extra Styles' ) : esc_html__( 'Default' );
-              echo $this->create_select( $this->value['extra-styles'], 'extra-styles', $placeholder, true );
+              echo ( ! $this->chosen ) ? '<div class="wpdk_settings--title">'. esc_html__( 'Load Extra Styles', 'woc-order-alert' ) .'</div>' : '';
+              $placeholder = ( $this->chosen ) ? esc_html__( 'Load Extra Styles', 'woc-order-alert' ) : esc_html__( 'Default', 'woc-order-alert' );
+              echo $this->create_select( $this->value['extra-styles'], 'extra-styles', $placeholder, true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
               echo '</div>';
             }
 
@@ -155,9 +155,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Subset
           if ( ! empty( $args['subset'] ) ) {
             echo '<div class="wpdk_settings--block wpdk_settings--block-subset hidden">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Subset' ) .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Subset', 'woc-order-alert' ) .'</div>';
             $subset = ( is_array( $this->value['subset'] ) ) ? $this->value['subset'] : array_filter( (array) $this->value['subset'] );
-            echo $this->create_select( $subset, 'subset', esc_html__( 'Default' ), $args['multi_subset'] );
+            echo $this->create_select( $subset, 'subset', esc_html__( 'Default', 'woc-order-alert' ), $args['multi_subset'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo '</div>';
           }
 
@@ -165,15 +165,15 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Text Align
           if ( ! empty( $args['text_align'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Align' ) .'</div>';
-            echo $this->create_select( array(
-              'inherit' => esc_html__( 'Inherit' ),
-              'left'    => esc_html__( 'Left' ),
-              'center'  => esc_html__( 'Center' ),
-              'right'   => esc_html__( 'Right' ),
-              'justify' => esc_html__( 'Justify' ),
-              'initial' => esc_html__( 'Initial' )
-            ), 'text-align', esc_html__( 'Default' ) );
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Align', 'woc-order-alert' ) .'</div>';
+            echo $this->create_select( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+              'inherit' => esc_html__( 'Inherit', 'woc-order-alert' ),
+              'left'    => esc_html__( 'Left', 'woc-order-alert' ),
+              'center'  => esc_html__( 'Center', 'woc-order-alert' ),
+              'right'   => esc_html__( 'Right', 'woc-order-alert' ),
+              'justify' => esc_html__( 'Justify', 'woc-order-alert' ),
+              'initial' => esc_html__( 'Initial', 'woc-order-alert' )
+            ), 'text-align', esc_html__( 'Default', 'woc-order-alert' ) );
             echo '</div>';
           }
 
@@ -181,12 +181,12 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Font Variant
           if ( ! empty( $args['font_variant'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Variant' ) .'</div>';
-            echo $this->create_select( array(
-              'normal'         => esc_html__( 'Normal' ),
-              'small-caps'     => esc_html__( 'Small Caps' ),
-              'all-small-caps' => esc_html__( 'All Small Caps' )
-            ), 'font-variant', esc_html__( 'Default' ) );
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Variant', 'woc-order-alert' ) .'</div>';
+            echo $this->create_select( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+              'normal'         => esc_html__( 'Normal', 'woc-order-alert' ),
+              'small-caps'     => esc_html__( 'Small Caps', 'woc-order-alert' ),
+              'all-small-caps' => esc_html__( 'All Small Caps', 'woc-order-alert' )
+            ), 'font-variant', esc_html__( 'Default', 'woc-order-alert' ) );
             echo '</div>';
           }
 
@@ -194,13 +194,13 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Text Transform
           if ( ! empty( $args['text_transform'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Transform' ) .'</div>';
-            echo $this->create_select( array(
-              'none'       => esc_html__( 'None' ),
-              'capitalize' => esc_html__( 'Capitalize' ),
-              'uppercase'  => esc_html__( 'Uppercase' ),
-              'lowercase'  => esc_html__( 'Lowercase' )
-            ), 'text-transform', esc_html__( 'Default' ) );
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Transform', 'woc-order-alert' ) .'</div>';
+            echo $this->create_select( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+              'none'       => esc_html__( 'None', 'woc-order-alert' ),
+              'capitalize' => esc_html__( 'Capitalize', 'woc-order-alert' ),
+              'uppercase'  => esc_html__( 'Uppercase', 'woc-order-alert' ),
+              'lowercase'  => esc_html__( 'Lowercase', 'woc-order-alert' )
+            ), 'text-transform', esc_html__( 'Default', 'woc-order-alert' ) );
             echo '</div>';
           }
 
@@ -208,17 +208,17 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Text Decoration
           if ( ! empty( $args['text_decoration'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Decoration' ) .'</div>';
-            echo $this->create_select( array(
-              'none'               => esc_html__( 'None' ),
-              'underline'          => esc_html__( 'Solid' ),
-              'underline double'   => esc_html__( 'Double' ),
-              'underline dotted'   => esc_html__( 'Dotted' ),
-              'underline dashed'   => esc_html__( 'Dashed' ),
-              'underline wavy'     => esc_html__( 'Wavy' ),
-              'underline overline' => esc_html__( 'Overline' ),
-              'line-through'       => esc_html__( 'Line-through' )
-            ), 'text-decoration', esc_html__( 'Default' ) );
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Text Decoration', 'woc-order-alert' ) .'</div>'; 
+            echo $this->create_select( array( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+              'none'               => esc_html__( 'None', 'woc-order-alert' ),
+              'underline'          => esc_html__( 'Solid', 'woc-order-alert' ),
+              'underline double'   => esc_html__( 'Double', 'woc-order-alert' ),
+              'underline dotted'   => esc_html__( 'Dotted', 'woc-order-alert' ),
+              'underline dashed'   => esc_html__( 'Dashed', 'woc-order-alert' ),
+              'underline wavy'     => esc_html__( 'Wavy', 'woc-order-alert' ),
+              'underline overline' => esc_html__( 'Overline', 'woc-order-alert' ),
+              'line-through'       => esc_html__( 'Line-through', 'woc-order-alert' )
+            ), 'text-decoration', esc_html__( 'Default', 'woc-order-alert' ) );
             echo '</div>';
           }
 
@@ -230,7 +230,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Font Size
           if ( ! empty( $args['font_size'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Size' ) .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Size', 'woc-order-alert' ) .'</div>';
             echo '<div class="wpdk_settings--input-wrap">';
             echo '<input type="number" name="'. esc_attr( $this->field_name( '[font-size]' ) ) .'" class="wpdk_settings--font-size wpdk_settings--input wpdk_settings-input-number" value="'. esc_attr( $this->value['font-size'] ) .'" step="any" />';
             echo '<span class="wpdk_settings--unit">'. esc_attr( $args['unit'] ) .'</span>';
@@ -242,7 +242,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Line Height
           if ( ! empty( $args['line_height'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Line Height' ) .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Line Height', 'woc-order-alert' ) .'</div>';
             echo '<div class="wpdk_settings--input-wrap">';
             echo '<input type="number" name="'. esc_attr( $this->field_name( '[line-height]' ) ) .'" class="wpdk_settings--line-height wpdk_settings--input wpdk_settings-input-number" value="'. esc_attr( $this->value['line-height'] ) .'" step="any" />';
             echo '<span class="wpdk_settings--unit">'. esc_attr( $line_height_unit ) .'</span>';
@@ -254,7 +254,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Letter Spacing
           if ( ! empty( $args['letter_spacing'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Letter Spacing' ) .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Letter Spacing', 'woc-order-alert' ) .'</div>';
             echo '<div class="wpdk_settings--input-wrap">';
             echo '<input type="number" name="'. esc_attr( $this->field_name( '[letter-spacing]' ) ) .'" class="wpdk_settings--letter-spacing wpdk_settings--input wpdk_settings-input-number" value="'. esc_attr( $this->value['letter-spacing'] ) .'" step="any" />';
             echo '<span class="wpdk_settings--unit">'. esc_attr( $args['unit'] ) .'</span>';
@@ -266,7 +266,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           // Word Spacing
           if ( ! empty( $args['word_spacing'] ) ) {
             echo '<div class="wpdk_settings--block">';
-            echo '<div class="wpdk_settings--title">'. esc_html__( 'Word Spacing' ) .'</div>';
+            echo '<div class="wpdk_settings--title">'. esc_html__( 'Word Spacing', 'woc-order-alert' ) .'</div>';
             echo '<div class="wpdk_settings--input-wrap">';
             echo '<input type="number" name="'. esc_attr( $this->field_name( '[word-spacing]' ) ) .'" class="wpdk_settings--word-spacing wpdk_settings--input wpdk_settings-input-number" value="'. esc_attr( $this->value['word-spacing'] ) .'" step="any" />';
             echo '<span class="wpdk_settings--unit">'. esc_attr( $args['unit'] ) .'</span>';
@@ -281,9 +281,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
         if ( ! empty( $args['color'] ) ) {
           $default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="'. esc_attr( $default_value['color'] ) .'"' : '';
           echo '<div class="wpdk_settings--block wpdk_settings--block-font-color">';
-          echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Color' ) .'</div>';
+          echo '<div class="wpdk_settings--title">'. esc_html__( 'Font Color', 'woc-order-alert' ) .'</div>';
           echo '<div class="wpdk_settings-field-color">';
-          echo '<input type="text" name="'. esc_attr( $this->field_name( '[color]' ) ) .'" class="wpdk_settings-color wpdk_settings--color" value="'. esc_attr( $this->value['color'] ) .'"'. $default_color_attr .' />';
+          echo '<input type="text" name="'. esc_attr( $this->field_name( '[color]' ) ) .'" class="wpdk_settings-color wpdk_settings--color" value="'. esc_attr( $this->value['color'] ) .'"'. $default_color_attr .' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo '</div>';
           echo '</div>';
         }
@@ -292,7 +292,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
         // Custom style
         if ( ! empty( $args['custom_style'] ) ) {
           echo '<div class="wpdk_settings--block wpdk_settings--block-custom-style">';
-          echo '<div class="wpdk_settings--title">'. esc_html__( 'Custom Style' ) .'</div>';
+          echo '<div class="wpdk_settings--title">'. esc_html__( 'Custom Style', 'woc-order-alert' ) .'</div>';
           echo '<textarea name="'. esc_attr( $this->field_name( '[custom-style]' ) ) .'" class="wpdk_settings--custom-style">'. esc_attr( $this->value['custom-style'] ) .'</textarea>';
           echo '</div>';
         }
@@ -313,7 +313,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
 
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 
@@ -351,22 +351,22 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
 
         WPDK_Settings::include_plugin_file( 'fields/typography/google-fonts.php' );
 
-        wp_enqueue_script( 'wpdk_settings-webfontloader', 'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js', array( 'pb_settings' ), '1.6.28', true );
+        wp_enqueue_script( 'wpdk_settings-webfontloader', 'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js', array( 'pb_settings' ), '1.6.28', true ); // phpcs:ignore PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent
 
         $webfonts = array();
 
-        $customwebfonts = apply_filters( 'pb_settings_field_typography_customwebfonts', array() );
+        $customwebfonts = apply_filters( 'pb_settings_field_typography_customwebfonts', array() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
         if ( ! empty( $customwebfonts ) ) {
           $webfonts['custom'] = array(
-            'label' => esc_html__( 'Custom Web Fonts' ),
+            'label' => esc_html__( 'Custom Web Fonts', 'woc-order-alert' ),
             'fonts' => $customwebfonts
           );
         }
 
         $webfonts['safe'] = array(
-          'label' => esc_html__( 'Safe Web Fonts' ),
-          'fonts' => apply_filters( 'pb_settings_field_typography_safewebfonts', array(
+          'label' => esc_html__( 'Safe Web Fonts', 'woc-order-alert' ),
+          'fonts' => apply_filters( 'pb_settings_field_typography_safewebfonts', array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
             'Arial',
             'Arial Black',
             'Helvetica',
@@ -385,13 +385,13 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
         ) );
 
         $webfonts['google'] = array(
-          'label' => esc_html__( 'Google Web Fonts' ),
-          'fonts' => apply_filters( 'pb_settings_field_typography_googlewebfonts', pb_settings_get_google_fonts()
+          'label' => esc_html__( 'Google Web Fonts', 'woc-order-alert' ),
+          'fonts' => apply_filters( 'pb_settings_field_typography_googlewebfonts', pb_settings_get_google_fonts() // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
         ) );
 
-        $defaultstyles = apply_filters( 'pb_settings_field_typography_defaultstyles', array( 'normal', 'italic', '700', '700italic' ) );
+        $defaultstyles = apply_filters( 'pb_settings_field_typography_defaultstyles', array( 'normal', 'italic', '700', '700italic' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-        $googlestyles = apply_filters( 'pb_settings_field_typography_googlestyles', array(
+        $googlestyles = apply_filters( 'pb_settings_field_typography_googlestyles', array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
           '100'       => 'Thin 100',
           '100italic' => 'Thin 100 Italic',
           '200'       => 'Extra-Light 200',
@@ -412,7 +412,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_typography' ) ) {
           '900italic' => 'Black 900 Italic'
         ) );
 
-        $webfonts = apply_filters( 'pb_settings_field_typography_webfonts', $webfonts );
+        $webfonts = apply_filters( 'pb_settings_field_typography_webfonts', $webfonts ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
         wp_localize_script( 'pb_settings', 'pb_settings_typography_json', array(
           'webfonts'      => $webfonts,

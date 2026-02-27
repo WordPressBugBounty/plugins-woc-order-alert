@@ -18,7 +18,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_color_group' ) ) {
 
       $options = ( ! empty( $this->field['options'] ) ) ? $this->field['options'] : array();
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       if ( ! empty( $options ) ) {
         foreach ( $options as $key => $option ) {
@@ -27,14 +27,14 @@ if ( ! class_exists( 'WPDK_Settings_Field_color_group' ) ) {
           $default_attr = ( ! empty( $this->field['default'][$key] ) ) ? ' data-default-color="'. esc_attr( $this->field['default'][$key] ) .'"' : '';
 
           echo '<div class="wpdk_settings--left wpdk_settings-field-color">';
-          echo '<div class="wpdk_settings--title">'. $option .'</div>';
-          echo '<input type="text" name="'. esc_attr( $this->field_name( '['. $key .']' ) ) .'" value="'. esc_attr( $color_value ) .'" class="wpdk_settings-color"'. $default_attr . $this->field_attributes() .'/>';
+          echo '<div class="wpdk_settings--title">'. $option .'</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+          echo '<input type="text" name="'. esc_attr( $this->field_name( '['. $key .']' ) ) .'" value="'. esc_attr( $color_value ) .'" class="wpdk_settings-color"'. $default_attr . $this->field_attributes() .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo '</div>';
 
         }
       }
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

@@ -18,11 +18,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_sorter' ) ) {
 
       $args = wp_parse_args( $this->field, array(
         'disabled'       => true,
-        'enabled_title'  => esc_html__( 'Enabled' ),
-        'disabled_title' => esc_html__( 'Disabled' ),
+        'enabled_title'  => esc_html__( 'Enabled', 'woc-order-alert' ),
+        'disabled_title' => esc_html__( 'Disabled', 'woc-order-alert' ),
       ) );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       $this->value      = ( ! empty( $this->value ) ) ? $this->value : $this->field['default'];
       $enabled_options  = ( ! empty( $this->value['enabled'] ) ) ? $this->value['enabled'] : array();
@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_sorter' ) ) {
       }
 
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

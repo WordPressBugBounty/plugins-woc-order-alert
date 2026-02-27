@@ -5,6 +5,8 @@
 
 namespace WPDK;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Class Notifications
  *
@@ -45,7 +47,7 @@ class Notifications {
 	 * Force check notifications
 	 */
 	function force_check_notifications() {
-		if ( Utils::get_args_option( 'force-check', wp_unslash( $_GET ) ) === 'yes' ) {
+		if ( Utils::get_args_option( 'force-check', wp_unslash( $_GET ) ) === 'yes' ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$this->set_cached_notification_data( $this->get_latest_notification_data() );
 		}
 	}

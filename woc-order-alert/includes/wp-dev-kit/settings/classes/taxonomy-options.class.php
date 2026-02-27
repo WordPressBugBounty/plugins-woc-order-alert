@@ -31,10 +31,10 @@ if ( ! class_exists( 'WPDK_Settings_Taxonomy_Options' ) ) {
 		public function __construct( $key, $params ) {
 
 			$this->unique     = $key;
-			$this->args       = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections   = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args       = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections   = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$this->taxonomies = ( is_array( $this->args['taxonomy'] ) ) ? $this->args['taxonomy'] : array_filter( (array) $this->args['taxonomy'] );
-			$this->taxonomy   = ( ! empty( $_REQUEST['taxonomy'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : '';
+			$this->taxonomy   = ( ! empty( $_REQUEST['taxonomy'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['taxonomy'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
 			$this->pre_fields = $this->pre_fields( $this->sections );
 
 			if ( ! empty( $this->taxonomies ) && in_array( $this->taxonomy, $this->taxonomies ) ) {
@@ -182,7 +182,7 @@ if ( ! class_exists( 'WPDK_Settings_Taxonomy_Options' ) ) {
 
 			// XSS ok.
 			// No worries, This "POST" requests is sanitizing in the below foreach.
-			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? array_map('sanitize_text_field',$_POST[ $this->unique ]) : array();
+			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? array_map('sanitize_text_field',$_POST[ $this->unique ]) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
 			if ( ! empty( $request ) ) {
 
@@ -243,9 +243,9 @@ if ( ! class_exists( 'WPDK_Settings_Taxonomy_Options' ) ) {
 
 			}
 
-			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $term_id, $this );
+			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $term_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_before", $data, $term_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_before", $data, $term_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( empty( $data ) ) {
 
@@ -273,9 +273,9 @@ if ( ! class_exists( 'WPDK_Settings_Taxonomy_Options' ) ) {
 
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $term_id, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $term_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_after", $data, $term_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_after", $data, $term_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 	}

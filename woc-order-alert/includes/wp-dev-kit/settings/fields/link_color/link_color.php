@@ -33,16 +33,16 @@ if ( ! class_exists( 'WPDK_Settings_Field_link_color' ) ) {
       );
 
       $color_props = array(
-        'color'    => esc_html__( 'Normal' ),
-        'hover'    => esc_html__( 'Hover' ),
-        'active'   => esc_html__( 'Active' ),
-        'visited'  => esc_html__( 'Visited' ),
-        'focus'    => esc_html__( 'Focus' )
+        'color'    => esc_html__( 'Normal', 'woc-order-alert' ),
+        'hover'    => esc_html__( 'Hover', 'woc-order-alert' ),
+        'active'   => esc_html__( 'Active', 'woc-order-alert' ),
+        'visited'  => esc_html__( 'Visited', 'woc-order-alert' ),
+        'focus'    => esc_html__( 'Focus', 'woc-order-alert' )
       );
 
       $value = wp_parse_args( $this->value, $default_values );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       foreach ( $color_props as $color_prop_key => $color_prop_value ) {
 
@@ -52,14 +52,14 @@ if ( ! class_exists( 'WPDK_Settings_Field_link_color' ) ) {
 
           echo '<div class="wpdk_settings--left wpdk_settings-field-color">';
           echo '<div class="wpdk_settings--title">'. esc_attr( $color_prop_value ) .'</div>';
-          echo '<input type="text" name="'. esc_attr( $this->field_name( '['. $color_prop_key .']' ) ) .'" value="'. esc_attr( $value[$color_prop_key] ) .'" class="wpdk_settings-color"'. $default_attr . $this->field_attributes() .'/>';
+          echo '<input type="text" name="'. esc_attr( $this->field_name( '['. $color_prop_key .']' ) ) .'" value="'. esc_attr( $value[$color_prop_key] ) .'" class="wpdk_settings-color"'. $default_attr . $this->field_attributes() .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo '</div>';
 
         }
 
       }
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

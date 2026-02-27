@@ -39,8 +39,8 @@ if ( ! class_exists( 'WPDK_Settings_Shortcoder' ) ) {
 		public function __construct( $key, $params = array() ) {
 
 			$this->unique       = $key;
-			$this->args         = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections     = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args         = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections     = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$this->pre_tabs     = $this->pre_tabs( $this->sections );
 			$this->pre_sections = $this->pre_sections( $this->sections );
 
@@ -256,7 +256,7 @@ if ( ! class_exists( 'WPDK_Settings_Shortcoder' ) ) {
 
 					if ( ! empty( $repeatable_fields ) ) {
 
-						$button_title    = ( ! empty( $section['button_title'] ) ) ? ' ' . $section['button_title'] : esc_html__( 'Add New' );
+						$button_title    = ( ! empty( $section['button_title'] ) ) ? ' ' . $section['button_title'] : esc_html__( 'Add New', 'woc-order-alert' );
 						$inner_shortcode = ( ! empty( $section['group_shortcode'] ) ) ? $section['group_shortcode'] : $shortcode;
 
 						echo '<div class="wpdk_settings--repeatable">';
@@ -295,7 +295,7 @@ if ( ! class_exists( 'WPDK_Settings_Shortcoder' ) ) {
 				}
 
 			} else {
-				echo '<div class="wpdk_settings-field wpdk_settings-error-text">' . esc_html__( 'Error: Invalid nonce verification.' ) . '</div>';
+				echo '<div class="wpdk_settings-field wpdk_settings-error-text">' . esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) . '</div>';
 			}
 
 			wp_send_json_success( array( 'content' => ob_get_clean() ) );
@@ -326,7 +326,7 @@ if ( ! class_exists( 'WPDK_Settings_Shortcoder' ) ) {
 				$depends[] = 'wp-edit-post';
 			}
 
-			wp_enqueue_script( 'wpdk_settings-gutenberg-block', WPDK_Settings::include_plugin_url( 'assets/js/gutenberg.js' ), $depends );
+			wp_enqueue_script( 'wpdk_settings-gutenberg-block', WPDK_Settings::include_plugin_url( 'assets/js/gutenberg.js' ), $depends ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion, WordPress.WP.EnqueuedResourceParameters.NotInFooter
 
 			wp_localize_script( 'wpdk_settings-gutenberg-block', 'pb_settings_gutenberg_blocks', WPDK_Settings::$shortcode_instances );
 

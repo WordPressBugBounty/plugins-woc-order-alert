@@ -22,11 +22,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_spacing' ) ) {
         'bottom_icon'        => '<i class="fas fa-long-arrow-alt-down"></i>',
         'left_icon'          => '<i class="fas fa-long-arrow-alt-left"></i>',
         'all_icon'           => '<i class="fas fa-arrows-alt"></i>',
-        'top_placeholder'    => esc_html__( 'top' ),
-        'right_placeholder'  => esc_html__( 'right' ),
-        'bottom_placeholder' => esc_html__( 'bottom' ),
-        'left_placeholder'   => esc_html__( 'left' ),
-        'all_placeholder'    => esc_html__( 'all' ),
+        'top_placeholder'    => esc_html__( 'top', 'woc-order-alert' ),
+        'right_placeholder'  => esc_html__( 'right', 'woc-order-alert' ),
+        'bottom_placeholder' => esc_html__( 'bottom', 'woc-order-alert' ),
+        'left_placeholder'   => esc_html__( 'left', 'woc-order-alert' ),
+        'all_placeholder'    => esc_html__( 'all', 'woc-order-alert' ),
         'top'                => true,
         'left'               => true,
         'bottom'             => true,
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_spacing' ) ) {
       $unit    = ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? $args['units'][0] : '';
       $is_unit = ( ! empty( $unit ) ) ? ' wpdk_settings--is-unit' : '';
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings--inputs" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
 
@@ -59,8 +59,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_spacing' ) ) {
         $placeholder = ( ! empty( $args['all_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args['all_placeholder'] ) .'"' : '';
 
         echo '<div class="wpdk_settings--input">';
-        echo ( ! empty( $args['all_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['all_icon'] .'</span>' : '';
-        echo '<input type="number" name="'. esc_attr( $this->field_name( '[all]' ) ) .'" value="'. esc_attr( $value['all'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />';
+        echo ( ! empty( $args['all_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['all_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<input type="number" name="'. esc_attr( $this->field_name( '[all]' ) ) .'" value="'. esc_attr( $value['all'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo ( $unit ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['units'][0] ) .'</span>' : '';
         echo '</div>';
 
@@ -81,8 +81,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_spacing' ) ) {
           $placeholder = ( ! empty( $args[$property.'_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args[$property.'_placeholder'] ) .'"' : '';
 
           echo '<div class="wpdk_settings--input">';
-          echo ( ! empty( $args[$property.'_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args[$property.'_icon'] .'</span>' : '';
-          echo '<input type="number" name="'. esc_attr( $this->field_name( '['. $property .']' ) ) .'" value="'. esc_attr( $value[$property] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />';
+          echo ( ! empty( $args[$property.'_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args[$property.'_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+          echo '<input type="number" name="'. esc_attr( $this->field_name( '['. $property .']' ) ) .'" value="'. esc_attr( $value[$property] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo ( $unit ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['units'][0] ) .'</span>' : '';
           echo '</div>';
 
@@ -103,7 +103,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_spacing' ) ) {
 
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

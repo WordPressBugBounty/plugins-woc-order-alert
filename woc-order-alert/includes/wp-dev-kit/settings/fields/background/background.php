@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
         'background_auto_attributes'    => false,
         'compact'                       => false,
         'background_image_library'      => 'image',
-        'background_image_placeholder'  => esc_html__( 'Not selected' ),
+        'background_image_placeholder'  => esc_html__( 'Not selected', 'woc-order-alert' ),
       ) );
 
       if ( $args['compact'] ) {
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
 
       $this->value = wp_parse_args( $this->value, $default_value );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings--background-colors">';
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
 
         echo '<div class="wpdk_settings--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings--title">'. esc_html__( 'From' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings--title">'. esc_html__( 'From', 'woc-order-alert' ) .'</div>' : '';
 
         WPDK_Settings::field( array(
           'id'      => 'background-color',
@@ -87,7 +87,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
 
         echo '<div class="wpdk_settings--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings--title">'. esc_html__( 'To' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings--title">'. esc_html__( 'To', 'woc-order-alert' ) .'</div>' : '';
 
         WPDK_Settings::field( array(
           'id'      => 'background-gradient-color',
@@ -105,17 +105,17 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
 
         echo '<div class="wpdk_settings--color">';
 
-        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings---title">'. esc_html__( 'Direction' ) .'</div>' : '';
+        echo ( ! empty( $args['background_gradient'] ) ) ? '<div class="wpdk_settings---title">'. esc_html__( 'Direction', 'woc-order-alert' ) .'</div>' : '';
 
         WPDK_Settings::field( array(
           'id'          => 'background-gradient-direction',
           'type'        => 'select',
           'options'     => array(
-            ''          => esc_html__( 'Gradient Direction' ),
-            'to bottom' => esc_html__( '&#8659; top to bottom' ),
-            'to right'  => esc_html__( '&#8658; left to right' ),
-            '135deg'    => esc_html__( '&#8664; corner top to right' ),
-            '-135deg'   => esc_html__( '&#8665; corner top to left' ),
+            ''          => esc_html__( 'Gradient Direction', 'woc-order-alert' ),
+            'to bottom' => esc_html__( '&#8659; top to bottom', 'woc-order-alert' ),
+            'to right'  => esc_html__( '&#8658; left to right', 'woc-order-alert' ),
+            '135deg'    => esc_html__( '&#8664; corner top to right', 'woc-order-alert' ),
+            '-135deg'   => esc_html__( '&#8665; corner top to left', 'woc-order-alert' ),
           ),
         ), $this->value['background-gradient-direction'], $this->field_name(), 'field/background' );
 
@@ -158,16 +158,16 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'              => 'background-position',
           'type'            => 'select',
           'options'         => array(
-            ''              => esc_html__( 'Background Position' ),
-            'left top'      => esc_html__( 'Left Top' ),
-            'left center'   => esc_html__( 'Left Center' ),
-            'left bottom'   => esc_html__( 'Left Bottom' ),
-            'center top'    => esc_html__( 'Center Top' ),
-            'center center' => esc_html__( 'Center Center' ),
-            'center bottom' => esc_html__( 'Center Bottom' ),
-            'right top'     => esc_html__( 'Right Top' ),
-            'right center'  => esc_html__( 'Right Center' ),
-            'right bottom'  => esc_html__( 'Right Bottom' ),
+            ''              => esc_html__( 'Background Position', 'woc-order-alert' ),
+            'left top'      => esc_html__( 'Left Top', 'woc-order-alert' ),
+            'left center'   => esc_html__( 'Left Center', 'woc-order-alert' ),
+            'left bottom'   => esc_html__( 'Left Bottom', 'woc-order-alert' ),
+            'center top'    => esc_html__( 'Center Top', 'woc-order-alert' ),
+            'center center' => esc_html__( 'Center Center', 'woc-order-alert' ),
+            'center bottom' => esc_html__( 'Center Bottom', 'woc-order-alert' ),
+            'right top'     => esc_html__( 'Right Top', 'woc-order-alert' ),
+            'right center'  => esc_html__( 'Right Center', 'woc-order-alert' ),
+            'right bottom'  => esc_html__( 'Right Bottom', 'woc-order-alert' ),
           ),
         ), $this->value['background-position'], $this->field_name(), 'field/background' );
 
@@ -181,11 +181,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'          => 'background-repeat',
           'type'        => 'select',
           'options'     => array(
-            ''          => esc_html__( 'Background Repeat' ),
-            'repeat'    => esc_html__( 'Repeat' ),
-            'no-repeat' => esc_html__( 'No Repeat' ),
-            'repeat-x'  => esc_html__( 'Repeat Horizontally' ),
-            'repeat-y'  => esc_html__( 'Repeat Vertically' ),
+            ''          => esc_html__( 'Background Repeat', 'woc-order-alert' ),
+            'repeat'    => esc_html__( 'Repeat', 'woc-order-alert' ),
+            'no-repeat' => esc_html__( 'No Repeat', 'woc-order-alert' ),
+            'repeat-x'  => esc_html__( 'Repeat Horizontally', 'woc-order-alert' ),
+            'repeat-y'  => esc_html__( 'Repeat Vertically', 'woc-order-alert' ),
           ),
         ), $this->value['background-repeat'], $this->field_name(), 'field/background' );
 
@@ -199,9 +199,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'       => 'background-attachment',
           'type'     => 'select',
           'options'  => array(
-            ''       => esc_html__( 'Background Attachment' ),
-            'scroll' => esc_html__( 'Scroll' ),
-            'fixed'  => esc_html__( 'Fixed' ),
+            ''       => esc_html__( 'Background Attachment', 'woc-order-alert' ),
+            'scroll' => esc_html__( 'Scroll', 'woc-order-alert' ),
+            'fixed'  => esc_html__( 'Fixed', 'woc-order-alert' ),
           ),
         ), $this->value['background-attachment'], $this->field_name(), 'field/background' );
 
@@ -215,10 +215,10 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'        => 'background-size',
           'type'      => 'select',
           'options'   => array(
-            ''        => esc_html__( 'Background Size' ),
-            'cover'   => esc_html__( 'Cover' ),
-            'contain' => esc_html__( 'Contain' ),
-            'auto'    => esc_html__( 'Auto' ),
+            ''        => esc_html__( 'Background Size', 'woc-order-alert' ),
+            'cover'   => esc_html__( 'Cover', 'woc-order-alert' ),
+            'contain' => esc_html__( 'Contain', 'woc-order-alert' ),
+            'auto'    => esc_html__( 'Auto', 'woc-order-alert' ),
           ),
         ), $this->value['background-size'], $this->field_name(), 'field/background' );
 
@@ -232,10 +232,10 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'            => 'background-origin',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Origin' ),
-            'padding-box' => esc_html__( 'Padding Box' ),
-            'border-box'  => esc_html__( 'Border Box' ),
-            'content-box' => esc_html__( 'Content Box' ),
+            ''            => esc_html__( 'Background Origin', 'woc-order-alert' ),
+            'padding-box' => esc_html__( 'Padding Box', 'woc-order-alert' ),
+            'border-box'  => esc_html__( 'Border Box', 'woc-order-alert' ),
+            'content-box' => esc_html__( 'Content Box', 'woc-order-alert' ),
           ),
         ), $this->value['background-origin'], $this->field_name(), 'field/background' );
 
@@ -249,10 +249,10 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'            => 'background-clip',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Clip' ),
-            'border-box'  => esc_html__( 'Border Box' ),
-            'padding-box' => esc_html__( 'Padding Box' ),
-            'content-box' => esc_html__( 'Content Box' ),
+            ''            => esc_html__( 'Background Clip', 'woc-order-alert' ),
+            'border-box'  => esc_html__( 'Border Box', 'woc-order-alert' ),
+            'padding-box' => esc_html__( 'Padding Box', 'woc-order-alert' ),
+            'content-box' => esc_html__( 'Content Box', 'woc-order-alert' ),
           ),
         ), $this->value['background-clip'], $this->field_name(), 'field/background' );
 
@@ -266,17 +266,17 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
           'id'            => 'background-blend-mode',
           'type'          => 'select',
           'options'       => array(
-            ''            => esc_html__( 'Background Blend Mode' ),
-            'normal'      => esc_html__( 'Normal' ),
-            'multiply'    => esc_html__( 'Multiply' ),
-            'screen'      => esc_html__( 'Screen' ),
-            'overlay'     => esc_html__( 'Overlay' ),
-            'darken'      => esc_html__( 'Darken' ),
-            'lighten'     => esc_html__( 'Lighten' ),
-            'color-dodge' => esc_html__( 'Color Dodge' ),
-            'saturation'  => esc_html__( 'Saturation' ),
-            'color'       => esc_html__( 'Color' ),
-            'luminosity'  => esc_html__( 'Luminosity' ),
+            ''            => esc_html__( 'Background Blend Mode', 'woc-order-alert' ),
+            'normal'      => esc_html__( 'Normal', 'woc-order-alert' ),
+            'multiply'    => esc_html__( 'Multiply', 'woc-order-alert' ),
+            'screen'      => esc_html__( 'Screen', 'woc-order-alert' ),
+            'overlay'     => esc_html__( 'Overlay', 'woc-order-alert' ),
+            'darken'      => esc_html__( 'Darken', 'woc-order-alert' ),
+            'lighten'     => esc_html__( 'Lighten', 'woc-order-alert' ),
+            'color-dodge' => esc_html__( 'Color Dodge', 'woc-order-alert' ),
+            'saturation'  => esc_html__( 'Saturation', 'woc-order-alert' ),
+            'color'       => esc_html__( 'Color', 'woc-order-alert' ),
+            'luminosity'  => esc_html__( 'Luminosity', 'woc-order-alert' ),
           ),
         ), $this->value['background-blend-mode'], $this->field_name(), 'field/background' );
 
@@ -284,7 +284,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_background' ) ) {
 
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

@@ -26,7 +26,6 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 			add_action( 'admin_bar_menu', array( $this, 'handle_admin_bar_menu' ), 9999, 1 );
 
 			add_filter( 'woocommerce_webhook_deliver_async', '__return_false' );
-			add_filter( 'woocommerce_rest_check_permissions', '__return_true' );
 			add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta' ), 10, 2 );
 			add_filter( 'plugin_action_links_' . OLISTENER_PLUGIN_FILE, array( $this, 'add_plugin_actions' ), 10, 2 );
 
@@ -34,7 +33,6 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 
 			add_action( 'woocommerce_new_order', array( $this, 'woocommerce_new_order' ), 10, 2 );
 		}
-
 
 		/**
 		 * Add capabilities to shop manager for Order Notifier
@@ -155,8 +153,8 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 
 			global $wpdb;
 
-			$all_orders           = $wpdb->get_results(
-				$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_listener WHERE read_status = %s", 'unread' )
+			$all_orders           = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_listener WHERE read_status = %s", 'unread' ) 
 			);
 			$all_orders           = ! is_array( $all_orders ) ? array() : $all_orders;
 			$order_list_items_all = olistener()->get_order_list_items();
@@ -169,7 +167,7 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 
 				if ( ! $order instanceof WC_Order ) {
 					$trashed_items ++;
-					$wpdb->delete( OLISTENER_DATA_TABLE, array( 'order_id' => $order_item->order_id ) );
+					$wpdb->delete( OLISTENER_DATA_TABLE, array( 'order_id' => $order_item->order_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 					continue;
 				}
 
@@ -193,9 +191,9 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 					$item_data[] = sprintf( '<div class="olistener-row-item"><div class="order-action mark-read tt--top" aria-label="%s"><span class="dashicons dashicons-visibility"></span></div></div>', esc_html__( 'Mark as Read', 'woc-order-alert' ) );
 				}
 
-				printf( '<div class="olistener-row order-%s">%s</div>', $order->get_id(), implode( '', $item_data ) );
+				printf( '<div class="olistener-row order-%s">%s</div>', esc_attr( $order->get_id() ), wp_kses_post( implode( '', $item_data ) ) );
 
-				$wpdb->update( OLISTENER_DATA_TABLE, array( 'read_status' => 'read' ), array( 'id' => $order_item->id ) );
+				$wpdb->update( OLISTENER_DATA_TABLE, array( 'read_status' => 'read' ), array( 'id' => $order_item->id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			}
 
 			wp_send_json_success(
@@ -223,7 +221,7 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 			if ( apply_filters( 'olistener_filters_should_notify', true, $order_id, $order ) ) {
 
 				$order_total  = $order->get_total();
-				$all_orders   = $wpdb->get_results(
+				$all_orders   = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 					$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}woocommerce_order_listener WHERE order_id = %d", $order_id )
 				);
 				$all_orders   = ! is_array( $all_orders ) ? array() : $all_orders;
@@ -238,10 +236,10 @@ if ( ! class_exists( 'Olistener_hooks' ) ) {
 
 				if ( $latest_order ) {
 					if ( current_time( 'U' ) - strtotime( $latest_order->datetime ) > 10 ) {
-						$wpdb->insert( OLISTENER_DATA_TABLE, $order_args );
+						$wpdb->insert( OLISTENER_DATA_TABLE, $order_args ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 					}
 				} else {
-					$wpdb->insert( OLISTENER_DATA_TABLE, $order_args );
+					$wpdb->insert( OLISTENER_DATA_TABLE, $order_args ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 				}
 			}
 		}

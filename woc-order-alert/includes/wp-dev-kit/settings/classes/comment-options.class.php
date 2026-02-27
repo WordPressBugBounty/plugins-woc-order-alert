@@ -31,8 +31,8 @@ if ( ! class_exists( 'WPDK_Settings_Comment_Metabox' ) ) {
 		public function __construct( $key, $params = array() ) {
 
 			$this->unique     = $key;
-			$this->args       = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections   = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args       = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections   = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$this->pre_fields = $this->pre_fields( $this->sections );
 
 			add_action( 'add_meta_boxes_comment', array( $this, 'add_comment_meta_box' ) );
@@ -196,7 +196,7 @@ if ( ! class_exists( 'WPDK_Settings_Comment_Metabox' ) ) {
 
 				} else {
 
-					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.' ) . '</div>';
+					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.', 'woc-order-alert' ) . '</div>';
 
 				}
 
@@ -213,8 +213,8 @@ if ( ! class_exists( 'WPDK_Settings_Comment_Metabox' ) ) {
 				echo '<div class="wpdk_settings-sections-reset">';
 				echo '<label>';
 				echo '<input type="checkbox" name="' . esc_attr( $this->unique ) . '[_reset]" />';
-				echo '<span class="button wpdk_settings-button-reset">' . esc_html__( 'Reset' ) . '</span>';
-				echo '<span class="button wpdk_settings-button-cancel">' . sprintf( '<small>( %s )</small> %s', esc_html__( 'update post' ), esc_html__( 'Cancel' ) ) . '</span>';
+				echo '<span class="button wpdk_settings-button-reset">' . esc_html__( 'Reset', 'woc-order-alert' ) . '</span>';
+				echo '<span class="button wpdk_settings-button-cancel">' . sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'woc-order-alert' ), esc_html__( 'Cancel', 'woc-order-alert' ) ) . '</span>';
 				echo '</label>';
 				echo '</div>';
 
@@ -308,9 +308,9 @@ if ( ! class_exists( 'WPDK_Settings_Comment_Metabox' ) ) {
 
 			}
 
-			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $comment_id, $this );
+			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $comment_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_before", $data, $comment_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_before", $data, $comment_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( empty( $data ) || ! empty( $request['_reset'] ) ) {
 
@@ -338,9 +338,9 @@ if ( ! class_exists( 'WPDK_Settings_Comment_Metabox' ) ) {
 
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $comment_id, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $comment_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_after", $data, $comment_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_after", $data, $comment_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 	}

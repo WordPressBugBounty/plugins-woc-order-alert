@@ -19,8 +19,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_dimensions' ) ) {
       $args = wp_parse_args( $this->field, array(
         'width_icon'         => '<i class="fas fa-arrows-alt-h"></i>',
         'height_icon'        => '<i class="fas fa-arrows-alt-v"></i>',
-        'width_placeholder'  => esc_html__( 'width' ),
-        'height_placeholder' => esc_html__( 'height' ),
+        'width_placeholder'  => esc_html__( 'width', 'woc-order-alert' ),
+        'height_placeholder' => esc_html__( 'height', 'woc-order-alert' ),
         'width'              => true,
         'height'             => true,
         'unit'               => true,
@@ -38,15 +38,15 @@ if ( ! class_exists( 'WPDK_Settings_Field_dimensions' ) ) {
       $unit    = ( count( $args['units'] ) === 1 && ! empty( $args['unit'] ) ) ? $args['units'][0] : '';
       $is_unit = ( ! empty( $unit ) ) ? ' wpdk_settings--is-unit' : '';
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings--inputs" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
 
       if ( ! empty( $args['width'] ) ) {
         $placeholder = ( ! empty( $args['width_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args['width_placeholder'] ) .'"' : '';
         echo '<div class="wpdk_settings--input">';
-        echo ( ! empty( $args['width_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['width_icon'] .'</span>' : '';
-        echo '<input type="number" name="'. esc_attr( $this->field_name( '[width]' ) ) .'" value="'. esc_attr( $value['width'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />';
+        echo ( ! empty( $args['width_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['width_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<input type="number" name="'. esc_attr( $this->field_name( '[width]' ) ) .'" value="'. esc_attr( $value['width'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo ( ! empty( $unit ) ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['units'][0] ) .'</span>' : '';
         echo '</div>';
       }
@@ -54,8 +54,8 @@ if ( ! class_exists( 'WPDK_Settings_Field_dimensions' ) ) {
       if ( ! empty( $args['height'] ) ) {
         $placeholder = ( ! empty( $args['height_placeholder'] ) ) ? ' placeholder="'. esc_attr( $args['height_placeholder'] ) .'"' : '';
         echo '<div class="wpdk_settings--input">';
-        echo ( ! empty( $args['height_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['height_icon'] .'</span>' : '';
-        echo '<input type="number" name="'. esc_attr( $this->field_name( '[height]' ) ) .'" value="'. esc_attr( $value['height'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />';
+        echo ( ! empty( $args['height_icon'] ) ) ? '<span class="wpdk_settings--label wpdk_settings--icon">'. $args['height_icon'] .'</span>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<input type="number" name="'. esc_attr( $this->field_name( '[height]' ) ) .'" value="'. esc_attr( $value['height'] ) .'"'. $placeholder .' class="wpdk_settings-input-number'. esc_attr( $is_unit ) .'" step="any" />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo ( ! empty( $unit ) ) ? '<span class="wpdk_settings--label wpdk_settings--unit">'. esc_attr( $args['units'][0] ) .'</span>' : '';
         echo '</div>';
       }
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_dimensions' ) ) {
 
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

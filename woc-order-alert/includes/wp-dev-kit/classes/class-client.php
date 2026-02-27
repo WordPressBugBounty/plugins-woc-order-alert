@@ -10,6 +10,8 @@ namespace WPDK;
 
 use WPDK_Settings;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Class Client
  *
@@ -136,7 +138,7 @@ class Client {
 	 */
 	function manage_permanent_dismissible() {
 
-		$query_args = wp_unslash( array_map( 'sanitize_text_field', $_GET ) );
+		$query_args = wp_unslash( array_map( 'sanitize_text_field', $_GET ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 		if ( Utils::get_args_option( 'pb_action', $query_args ) == 'permanent_dismissible' && ! empty( $id = Utils::get_args_option( 'id', $query_args ) ) ) {
 
@@ -218,12 +220,12 @@ class Client {
 						'id'        => $permanent_dismiss
 					), site_url( 'wp-admin' )
 				) ),
-				esc_html__( 'Dismiss', $this->text_domain )
+				esc_html__( 'Dismiss', $this->text_domain ) // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralDomain
 			);
 		}
 
 		if ( ! empty( $message ) ) {
-			printf( '<div class="notice notice-%s %s">%s%s</div>', $type, $is_dismissible, $message, $pb_dismissible );
+			printf( '<div class="notice notice-%s %s">%s%s</div>', $type, $is_dismissible, $message, $pb_dismissible ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
             <style>
                 .pb-is-dismissible {
@@ -294,7 +296,7 @@ class Client {
 	public function get_website_url( $path = '' ) {
 
 		if ( is_multisite() && isset( $_SERVER['SERVER_NAME'] ) ) {
-			return sanitize_text_field( $_SERVER['SERVER_NAME'] ) . '/' . $path;
+			return sanitize_text_field( $_SERVER['SERVER_NAME'] ) . '/' . $path; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 		}
 
 		return site_url( $path );

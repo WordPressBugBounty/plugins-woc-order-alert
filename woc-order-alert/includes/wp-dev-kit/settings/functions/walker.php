@@ -17,7 +17,7 @@ if ( ! class_exists( 'WPDK_Settings_Walker_Nav_Menu_Edit' ) && class_exists( 'Wa
       parent::start_el( $html, $item, $depth, $args, $id );
 
       ob_start();
-      do_action( 'wp_nav_menu_item_custom_fields', $item->ID, $item, $depth, $args );
+      do_action( 'wp_nav_menu_item_custom_fields', $item->ID, $item, $depth, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
       $custom_fields = ob_get_clean();
 
       $output .= preg_replace( '/(?=<(fieldset|p)[^>]+class="[^"]*field-move)/', $custom_fields, $html );

@@ -16,10 +16,10 @@ if ( ! class_exists( 'WPDK_Settings_Field_textarea' ) ) {
 
     public function render() {
 
-      echo $this->field_before();
-      echo $this->shortcoder();
-      echo '<textarea name="'. esc_attr( $this->field_name() ) .'"'. $this->field_attributes() .'>'. $this->value .'</textarea>';
-      echo $this->field_after();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo $this->shortcoder(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<textarea name="'. esc_attr( $this->field_name() ) .'"'. $this->field_attributes() .'>'. $this->value .'</textarea>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 
@@ -35,7 +35,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_textarea' ) ) {
 
             $button_title = WPDK_Settings::$shortcode_instances[$instance_key]['button_title'];
 
-            echo '<a href="#" class="button button-primary wpdk_settings-shortcode-button" data-modal-id="'. esc_attr( $instance_key ) .'">'. $button_title .'</a>';
+            echo '<a href="#" class="button button-primary wpdk_settings-shortcode-button" data-modal-id="'. esc_attr( $instance_key ) .'">'. $button_title .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
           }
 

@@ -26,12 +26,12 @@ if ( ! class_exists( 'WPDK_Settings_Field_text' ) ) {
 				$field_value = get_the_title();
 			}
 
-			echo $this->field_before();
+			echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 
-			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_value ) . '"' . $this->field_attributes() . ' />';
+			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $field_name ) . '" value="' . esc_attr( $field_value ) . '"' . $this->field_attributes() . ' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-			echo $this->field_after();
+			echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		}
 

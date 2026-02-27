@@ -21,17 +21,17 @@ if ( ! class_exists( 'WPDK_Settings_Field_repeater' ) ) {
 				'min'             => 0,
 				'button_title'    => '<i class="fas fa-plus-circle"></i>',
 				'disable_actions' => array(),
-				'max_notice'      => esc_html__( 'You cannot add more.' ),
-				'min_notice'      => esc_html__( 'You cannot remove more.' ),
+				'max_notice'      => esc_html__( 'You cannot add more.', 'woc-order-alert' ),
+				'min_notice'      => esc_html__( 'You cannot remove more.', 'woc-order-alert' ),
 			) );
 
 			if ( preg_match( '/' . preg_quote( '[' . $this->field['id'] . ']' ) . '/', $this->unique ) ) {
 
-				echo '<div class="wpdk_settings-notice wpdk_settings-notice-danger">' . esc_html__( 'Error: Field ID conflict.' ) . '</div>';
+				echo '<div class="wpdk_settings-notice wpdk_settings-notice-danger">' . esc_html__( 'Error: Field ID conflict.', 'woc-order-alert' ) . '</div>';
 
 			} else {
 
-				echo $this->field_before();
+				echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				echo '<div class="wpdk_settings-repeater-item wpdk_settings-repeater-hidden" data-depend-id="' . esc_attr( $this->field['id'] ) . '">';
 				echo '<div class="wpdk_settings-repeater-content">';
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_repeater' ) ) {
 				}
 
 				if ( ! in_array( 'remove', $args['disable_actions'] ) ) {
-					echo '<i class="wpdk_settings-repeater-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?' ) . '"></i>';
+					echo '<i class="wpdk_settings-repeater-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?', 'woc-order-alert' ) . '"></i>';
 				}
 
 				echo '</div>';
@@ -94,7 +94,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_repeater' ) ) {
 						}
 
 						if ( ! in_array( 'remove', $args['disable_actions'] ) ) {
-							echo '<i class="wpdk_settings-repeater-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?' ) . '"></i>';
+							echo '<i class="wpdk_settings-repeater-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?', 'woc-order-alert' ) . '"></i>';
 						}
 
 						echo '</div>';
@@ -109,11 +109,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_repeater' ) ) {
 
 				echo '</div>';
 
-				echo '<div class="wpdk_settings-repeater-alert wpdk_settings-repeater-max">' . $args['max_notice'] . '</div>';
-				echo '<div class="wpdk_settings-repeater-alert wpdk_settings-repeater-min">' . $args['min_notice'] . '</div>';
-				echo '<a href="#" class="button button-primary wpdk_settings-repeater-add">' . $args['button_title'] . '</a>';
+				echo '<div class="wpdk_settings-repeater-alert wpdk_settings-repeater-max">' . $args['max_notice'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="wpdk_settings-repeater-alert wpdk_settings-repeater-min">' . $args['min_notice'] . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<a href="#" class="button button-primary wpdk_settings-repeater-add">' . $args['button_title'] . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-				echo $this->field_after();
+				echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			}
 

@@ -8,10 +8,10 @@
  *
  */
 if ( ! function_exists( 'pb_settings_validate_email' ) ) {
-  function pb_settings_validate_email( $value ) {
+  function pb_settings_validate_email( $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
-      return esc_html__( 'Please enter a valid email address.' );
+      return esc_html__( 'Please enter a valid email address.', 'woc-order-alert' );
     }
 
   }
@@ -26,10 +26,10 @@ if ( ! function_exists( 'pb_settings_validate_email' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_validate_numeric' ) ) {
-  function pb_settings_validate_numeric( $value ) {
+  function pb_settings_validate_numeric( $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! is_numeric( $value ) ) {
-      return esc_html__( 'Please enter a valid number.' );
+      return esc_html__( 'Please enter a valid number.', 'woc-order-alert' );
     }
 
   }
@@ -44,10 +44,10 @@ if ( ! function_exists( 'pb_settings_validate_numeric' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_validate_required' ) ) {
-  function pb_settings_validate_required( $value ) {
+  function pb_settings_validate_required( $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( empty( $value ) ) {
-      return esc_html__( 'This field is required.' );
+      return esc_html__( 'This field is required.', 'woc-order-alert' );
     }
 
   }
@@ -62,10 +62,10 @@ if ( ! function_exists( 'pb_settings_validate_required' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_validate_url' ) ) {
-  function pb_settings_validate_url( $value ) {
+  function pb_settings_validate_url( $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-      return esc_html__( 'Please enter a valid URL.' );
+      return esc_html__( 'Please enter a valid URL.', 'woc-order-alert' );
     }
 
   }
@@ -80,10 +80,10 @@ if ( ! function_exists( 'pb_settings_validate_url' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_customize_validate_email' ) ) {
-  function pb_settings_customize_validate_email( $validity, $value, $wp_customize ) {
+  function pb_settings_customize_validate_email( $validity, $value, $wp_customize ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! sanitize_email( $value ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid email address.' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid email address.', 'woc-order-alert' ) );
     }
 
     return $validity;
@@ -100,10 +100,10 @@ if ( ! function_exists( 'pb_settings_customize_validate_email' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_customize_validate_numeric' ) ) {
-  function pb_settings_customize_validate_numeric( $validity, $value, $wp_customize ) {
+  function pb_settings_customize_validate_numeric( $validity, $value, $wp_customize ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! is_numeric( $value ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid number.' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid number.', 'woc-order-alert' ) );
     }
 
     return $validity;
@@ -120,10 +120,10 @@ if ( ! function_exists( 'pb_settings_customize_validate_numeric' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_customize_validate_required' ) ) {
-  function pb_settings_customize_validate_required( $validity, $value, $wp_customize ) {
+  function pb_settings_customize_validate_required( $validity, $value, $wp_customize ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( empty( $value ) ) {
-      $validity->add( 'required', esc_html__( 'This field is required.' ) );
+      $validity->add( 'required', esc_html__( 'This field is required.', 'woc-order-alert' ) );
     }
 
     return $validity;
@@ -140,10 +140,10 @@ if ( ! function_exists( 'pb_settings_customize_validate_required' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_customize_validate_url' ) ) {
-  function pb_settings_customize_validate_url( $validity, $value, $wp_customize ) {
+  function pb_settings_customize_validate_url( $validity, $value, $wp_customize ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid URL.' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid URL.', 'woc-order-alert' ) );
     }
 
     return $validity;

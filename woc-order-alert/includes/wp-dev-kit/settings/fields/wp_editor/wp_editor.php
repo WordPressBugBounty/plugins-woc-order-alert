@@ -39,15 +39,15 @@ if ( ! class_exists( 'WPDK_Settings_Field_wp_editor' ) ) {
 				'wpautop'       => $args['wpautop'],
 			);
 
-			echo $this->field_before();
+			echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			echo ( pb_settings_wp_editor_api() ) ? '<div class="wpdk_settings-wp-editor" data-editor-settings="' . esc_attr( json_encode( $editor_settings ) ) . '">' : '';
 
-			echo '<textarea name="' . esc_attr( $this->field_name() ) . '"' . $this->field_attributes( $attributes ) . $editor_height . '>' . $this->value . '</textarea>';
+			echo '<textarea name="' . esc_attr( $this->field_name() ) . '"' . $this->field_attributes( $attributes ) . $editor_height . '>' . $this->value . '</textarea>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			echo ( pb_settings_wp_editor_api() ) ? '</div>' : '';
 
-			echo $this->field_after();
+			echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		}
 
@@ -74,7 +74,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_wp_editor' ) ) {
 
 			ob_start();
 			echo '<div class="wp-media-buttons">';
-			do_action( 'media_buttons' );
+			do_action( 'media_buttons' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			echo '</div>';
 			$media_buttons = ob_get_clean();
 
@@ -89,7 +89,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_wp_editor' ) ) {
 
 			if ( pb_settings_wp_editor_api() && class_exists( '_WP_Editors' ) ) {
 
-				$defaults = apply_filters( 'pb_settings_wp_editor', array(
+				$defaults = apply_filters( 'pb_settings_wp_editor', array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 					'tinymce' => array(
 						'wp_skip_init' => true
 					),

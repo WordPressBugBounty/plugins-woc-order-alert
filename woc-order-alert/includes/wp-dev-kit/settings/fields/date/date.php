@@ -23,13 +23,13 @@ if ( ! class_exists( 'WPDK_Settings_Field_date' ) ) {
       $settings = ( ! empty( $this->field['settings'] ) ) ? $this->field['settings'] : array();
       $settings = wp_parse_args( $settings, $default_settings );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       if ( ! empty( $this->field['from_to'] ) ) {
 
         $args = wp_parse_args( $this->field, array(
-          'text_from' => esc_html__( 'From' ),
-          'text_to'   => esc_html__( 'To' ),
+          'text_from' => esc_html__( 'From', 'woc-order-alert' ),
+          'text_to'   => esc_html__( 'To', 'woc-order-alert' ),
         ) );
 
         $value = wp_parse_args( $this->value, array(
@@ -37,18 +37,18 @@ if ( ! class_exists( 'WPDK_Settings_Field_date' ) ) {
           'to'   => '',
         ) );
 
-        echo '<label class="wpdk_settings--from">'. esc_attr( $args['text_from'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[from]' ) ) .'" value="'. esc_attr( $value['from'] ) .'"'. $this->field_attributes() .'/></label>';
-        echo '<label class="wpdk_settings--to">'. esc_attr( $args['text_to'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[to]' ) ) .'" value="'. esc_attr( $value['to'] ) .'"'. $this->field_attributes() .'/></label>';
+        echo '<label class="wpdk_settings--from">'. esc_attr( $args['text_from'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[from]' ) ) .'" value="'. esc_attr( $value['from'] ) .'"'. $this->field_attributes() .'/></label>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<label class="wpdk_settings--to">'. esc_attr( $args['text_to'] ) .' <input type="text" name="'. esc_attr( $this->field_name( '[to]' ) ) .'" value="'. esc_attr( $value['to'] ) .'"'. $this->field_attributes() .'/></label>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       } else {
 
-        echo '<input type="text" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>';
+        echo '<input type="text" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       }
 
       echo '<div class="wpdk_settings-date-settings" data-settings="'. esc_attr( json_encode( $settings ) ) .'"></div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

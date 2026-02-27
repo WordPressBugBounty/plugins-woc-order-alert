@@ -18,7 +18,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_palette' ) ) {
 
       $palette = ( ! empty( $this->field['options'] ) ) ? $this->field['options'] : array();
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       if ( ! empty( $palette ) ) {
 
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_palette' ) ) {
 
           }
 
-          echo '<input type="radio" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $key ) .'"'. $this->field_attributes() . esc_attr( $checked ) .'/>';
+          echo '<input type="radio" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $key ) .'"'. $this->field_attributes() . esc_attr( $checked ) .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
           echo '</div>';
 
         }
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_palette' ) ) {
 
       }
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

@@ -18,7 +18,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_content' ) ) {
 
       if ( ! empty( $this->field['content'] ) ) {
 
-        echo $this->field['content'];
+        echo $this->field['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       }
 

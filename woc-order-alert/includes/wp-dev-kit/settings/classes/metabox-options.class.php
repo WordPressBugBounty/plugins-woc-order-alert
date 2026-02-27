@@ -40,8 +40,8 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 		public function __construct( $key, $params = array() ) {
 
 			$this->unique         = $key;
-			$this->args           = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections       = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args           = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections       = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			$this->post_type      = ( is_array( $this->args['post_type'] ) ) ? $this->args['post_type'] : array_filter( (array) $this->args['post_type'] );
 			$this->post_formats   = ( is_array( $this->args['post_formats'] ) ) ? $this->args['post_formats'] : array_filter( (array) $this->args['post_formats'] );
 			$this->page_templates = ( is_array( $this->args['page_templates'] ) ) ? $this->args['page_templates'] : array_filter( (array) $this->args['page_templates'] );
@@ -222,7 +222,7 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 					$tab_error = ( ! empty( $errors['sections'][ $tab_key ] ) ) ? '<i class="wpdk_settings-label-error wpdk_settings-error">!</i>' : '';
 					$tab_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="wpdk_settings-tab-icon ' . esc_attr( $section['icon'] ) . '"></i>' : '';
 
-					printf( '<li><a href="#" data-section="%s">%s%s%s</a></li>', ( $this->unique . '_' . $tab_key ), $tab_icon, $section['title'], $tab_error );
+					printf( '<li><a href="#" data-section="%s">%s%s%s</a></li>', ( $this->unique . '_' . $tab_key ), $tab_icon, $section['title'], $tab_error ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 					$tab_key ++;
 				}
@@ -275,7 +275,7 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 					do_action( 'WPDK_Settings/meta_section/' . $section['id'], $section );
 
 				} else {
-					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.' ) . '</div>';
+					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.', 'woc-order-alert' ) . '</div>';
 				}
 
 				echo '</div>';
@@ -291,8 +291,8 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 				echo '<div class="wpdk_settings-sections-reset">';
 				echo '<label>';
 				echo '<input type="checkbox" name="' . esc_attr( $this->unique ) . '[_reset]" />';
-				echo '<span class="button wpdk_settings-button-reset">' . esc_html__( 'Reset' ) . '</span>';
-				echo '<span class="button wpdk_settings-button-cancel">' . sprintf( '<small>( %s )</small> %s', esc_html__( 'update post' ), esc_html__( 'Cancel' ) ) . '</span>';
+				echo '<span class="button wpdk_settings-button-reset">' . esc_html__( 'Reset', 'woc-order-alert' ) . '</span>';
+				echo '<span class="button wpdk_settings-button-cancel">' . sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'woc-order-alert' ), esc_html__( 'Cancel', 'woc-order-alert' ) ) . '</span>';
 				echo '</label>';
 				echo '</div>';
 
@@ -325,7 +325,7 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 
 			// XSS ok.
 			// No worries, This "POST" requests is sanitizing in the below foreach.
-			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? wp_unslash( $_POST[ $this->unique ] ) : array();
+			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? wp_unslash( $_POST[ $this->unique ] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( ! empty( $request ) ) {
 
@@ -395,9 +395,9 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 
 			}
 
-			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $post_id, $this );
+			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $post_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_before", $data, $post_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_before", $data, $post_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( empty( $data ) || ! empty( $request['_reset'] ) ) {
 
@@ -425,9 +425,9 @@ if ( ! class_exists( 'WPDK_Settings_Metabox' ) ) {
 
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $post_id, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $post_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_after", $data, $post_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_after", $data, $post_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 	}

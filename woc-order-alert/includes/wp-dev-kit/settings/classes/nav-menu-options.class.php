@@ -24,8 +24,8 @@ if ( ! class_exists( 'WPDK_Settings_Nav_Menu_Options' ) ) {
 		public function __construct( $key, $params ) {
 
 			$this->unique   = $key;
-			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'wp_nav_menu_item_custom_fields' ), 10, 4 );
 			add_action( 'wp_update_nav_menu_item', array( $this, 'wp_update_nav_menu_item' ), 10, 3 );
@@ -215,9 +215,9 @@ if ( ! class_exists( 'WPDK_Settings_Nav_Menu_Options' ) ) {
 
 			}
 
-			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $menu_item_db_id, $this );
+			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $menu_item_db_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_before", $data, $menu_item_db_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_before", $data, $menu_item_db_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( empty( $data ) ) {
 
@@ -245,9 +245,9 @@ if ( ! class_exists( 'WPDK_Settings_Nav_Menu_Options' ) ) {
 
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $menu_item_db_id, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $menu_item_db_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_after", $data, $menu_item_db_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_after", $data, $menu_item_db_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 

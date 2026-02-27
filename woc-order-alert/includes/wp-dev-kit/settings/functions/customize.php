@@ -8,7 +8,7 @@
  *
  */
 if ( ! class_exists( 'WP_Customize_Panel_WPDK_Settings' ) && class_exists( 'WP_Customize_Panel' ) ) {
-	class WP_Customize_Panel_WPDK_Settings extends WP_Customize_Panel {
+	class WP_Customize_Panel_WPDK_Settings extends WP_Customize_Panel { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 		public $type = 'pb_settings';
 	}
 }
@@ -22,7 +22,7 @@ if ( ! class_exists( 'WP_Customize_Panel_WPDK_Settings' ) && class_exists( 'WP_C
  *
  */
 if ( ! class_exists( 'WP_Customize_Section_WPDK_Settings' ) && class_exists( 'WP_Customize_Section' ) ) {
-	class WP_Customize_Section_WPDK_Settings extends WP_Customize_Section {
+	class WP_Customize_Section_WPDK_Settings extends WP_Customize_Section { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 		public $type = 'pb_settings';
 	}
 }
@@ -36,7 +36,7 @@ if ( ! class_exists( 'WP_Customize_Section_WPDK_Settings' ) && class_exists( 'WP
  *
  */
 if ( ! class_exists( 'WP_Customize_Control_WPDK_Settings' ) && class_exists( 'WP_Customize_Control' ) ) {
-	class WP_Customize_Control_WPDK_Settings extends WP_Customize_Control {
+	class WP_Customize_Control_WPDK_Settings extends WP_Customize_Control { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
 
 		public $type = 'pb_settings';
 		public $field = '';
@@ -91,7 +91,7 @@ if ( ! class_exists( 'WP_Customize_Control_WPDK_Settings' ) && class_exists( 'WP
 
 		public function render_field_content() {
 
-			$complex = apply_filters( 'pb_settings_customize_complex_fields', array(
+			$complex = apply_filters( 'pb_settings_customize_complex_fields', array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				'accordion',
 				'background',
 				'border',
@@ -131,7 +131,7 @@ if ( ! class_exists( 'WP_Customize_Control_WPDK_Settings' ) && class_exists( 'WP
 
 			$this->field['dependency'] = array();
 
-			echo '<div class="wpdk_settings-customize-field' . esc_attr( $class ) . '"' . $atts . '>';
+			echo '<div class="wpdk_settings-customize-field' . esc_attr( $class ) . '"' . $atts . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			WPDK_Settings::field( $this->field, $this->value(), $this->unique, 'customize' );
 

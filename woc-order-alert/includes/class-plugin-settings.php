@@ -205,9 +205,9 @@ class OLISTENER_Settings {
 							'type'         => 'checkbox',
 							'options'      => olistener()->get_rules_relations(),
 							'desc'         => esc_html__( 'Please select the conditions you wish to check for new order checking.', 'woc-order-alert' ) . '<br>' .
-							                  __( '<strong>Multi conditions selected</strong> - System will notify you only if all the checked conditions are matched.' ) . '<br>' .
-							                  __( '<strong>Single condition selected</strong> - System will notify you only when the selected condition is matched.' ) . '<br>' .
-							                  __( '<strong>No condition selected</strong> - System will notify you if any of the condition is matched.' ),
+							                  __( '<strong>Multi conditions selected</strong> - System will notify you only if all the checked conditions are matched.', 'woc-order-alert' ) . '<br>' .
+							                  __( '<strong>Single condition selected</strong> - System will notify you only when the selected condition is matched.', 'woc-order-alert' ) . '<br>' .
+							                  __( '<strong>No condition selected</strong> - System will notify you if any of the condition is matched.', 'woc-order-alert' ),
 							'availability' => olistener()->is_pro() ? '' : 'pro',
 							'dependency'   => array( 'olistener_enable_rules', '==', true ),
 						),

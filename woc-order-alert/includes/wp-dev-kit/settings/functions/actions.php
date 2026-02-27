@@ -8,21 +8,21 @@
  *
  */
 if ( ! function_exists( 'pb_settings_get_icons' ) ) {
-	function pb_settings_get_icons() {
+	function pb_settings_get_icons() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
 		$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'pb_settings_icon_nonce' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) ) );
 		}
 
 		ob_start();
 
-		$icon_library = ( apply_filters( 'pb_settings_fa4', false ) ) ? 'fa4' : 'fa5';
+		$icon_library = ( apply_filters( 'pb_settings_fa4', false ) ) ? 'fa4' : 'fa5'; // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		WPDK_Settings::include_plugin_file( 'fields/icon/' . $icon_library . '-icons.php' );
 
-		$icon_lists = apply_filters( 'pb_settings_field_icon_add_icons', pb_settings_get_default_icons() );
+		$icon_lists = apply_filters( 'pb_settings_field_icon_add_icons', pb_settings_get_default_icons() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		if ( ! empty( $icon_lists ) ) {
 
@@ -38,7 +38,7 @@ if ( ! function_exists( 'pb_settings_get_icons' ) ) {
 
 		} else {
 
-			echo '<div class="wpdk_settings-error-text">' . esc_html__( 'No data available.' ) . '</div>';
+			echo '<div class="wpdk_settings-error-text">' . esc_html__( 'No data available.', 'woc-order-alert' ) . '</div>';
 
 		}
 
@@ -60,17 +60,17 @@ if ( ! function_exists( 'pb_settings_get_icons' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_export' ) ) {
-	function pb_settings_export() {
+	function pb_settings_export() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
 		$nonce  = ( ! empty( $_GET['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_GET['nonce'] ) ) : '';
 		$unique = ( ! empty( $_GET['unique'] ) ) ? sanitize_text_field( wp_unslash( $_GET['unique'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'pb_settings_backup_nonce' ) ) {
-			die( esc_html__( 'Error: Invalid nonce verification.' ) );
+			die( esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) );
 		}
 
 		if ( empty( $unique ) ) {
-			die( esc_html__( 'Error: Invalid key.' ) );
+			die( esc_html__( 'Error: Invalid key.', 'woc-order-alert' ) );
 		}
 
 		// Export
@@ -98,22 +98,22 @@ if ( ! function_exists( 'pb_settings_export' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_import_ajax' ) ) {
-	function pb_settings_import_ajax() {
+	function pb_settings_import_ajax() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
 		$nonce  = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		$unique = ( ! empty( $_POST['unique'] ) ) ? sanitize_text_field( wp_unslash( $_POST['unique'] ) ) : '';
-		$data   = ( ! empty( $_POST['data'] ) ) ? wp_kses_post_deep( json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) ) : array();
+		$data   = ( ! empty( $_POST['data'] ) ) ? wp_kses_post_deep( json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( ! wp_verify_nonce( $nonce, 'pb_settings_backup_nonce' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) ) );
 		}
 
 		if ( empty( $unique ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid key.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid key.', 'woc-order-alert' ) ) );
 		}
 
 		if ( empty( $data ) || ! is_array( $data ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: The response is not a valid JSON response.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: The response is not a valid JSON response.', 'woc-order-alert' ) ) );
 		}
 
 		// Success
@@ -135,13 +135,13 @@ if ( ! function_exists( 'pb_settings_import_ajax' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_reset_ajax' ) ) {
-	function pb_settings_reset_ajax() {
+	function pb_settings_reset_ajax() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
 		$nonce  = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		$unique = ( ! empty( $_POST['unique'] ) ) ? sanitize_text_field( wp_unslash( $_POST['unique'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, 'pb_settings_backup_nonce' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) ) );
 		}
 
 		// Success
@@ -163,25 +163,25 @@ if ( ! function_exists( 'pb_settings_reset_ajax' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_chosen_ajax' ) ) {
-	function pb_settings_chosen_ajax() {
+	function pb_settings_chosen_ajax() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
 		$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		$type  = ( ! empty( $_POST['type'] ) ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
 		$term  = ( ! empty( $_POST['term'] ) ) ? sanitize_text_field( wp_unslash( $_POST['term'] ) ) : '';
-		$query = ( ! empty( $_POST['query_args'] ) ) ? wp_kses_post_deep( $_POST['query_args'] ) : array();
+		$query = ( ! empty( $_POST['query_args'] ) ) ? wp_kses_post_deep( $_POST['query_args'] ) : array(); // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		if ( ! wp_verify_nonce( $nonce, 'pb_settings_chosen_ajax_nonce' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'woc-order-alert' ) ) );
 		}
 
 		if ( empty( $type ) || empty( $term ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid term ID.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid term ID.', 'woc-order-alert' ) ) );
 		}
 
-		$capability = apply_filters( 'pb_settings_chosen_ajax_capability', 'manage_options' );
+		$capability = apply_filters( 'pb_settings_chosen_ajax_capability', 'manage_options' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		if ( ! current_user_can( $capability ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.' ) ) );
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.', 'woc-order-alert' ) ) );
 		}
 
 		// Success

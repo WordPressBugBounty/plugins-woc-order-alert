@@ -11,6 +11,8 @@
 use WPDK\Client;
 use WPDK\Utils;
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WPDK_Settings' ) ) {
 	class WPDK_Settings {
 
@@ -66,7 +68,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 		public function __construct() {
 
 			// Init action
-			do_action( 'pb_settings_init' );
+			do_action( 'pb_settings_init' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			add_action( 'after_setup_theme', array( 'WPDK_Settings', 'setup' ) );
 			add_action( 'init', array( 'WPDK_Settings', 'setup' ) );
@@ -174,7 +176,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			// Setup taxonomy option framework
 			$params = array();
 			if ( class_exists( 'WPDK_Settings_Taxonomy_Options' ) && ! empty( self::$args['taxonomy_options'] ) ) {
-				$taxonomy = ( isset( $_GET['taxonomy'] ) ) ? sanitize_text_field( wp_unslash( $_GET['taxonomy'] ) ) : '';
+				$taxonomy = ( isset( $_GET['taxonomy'] ) ) ? sanitize_text_field( wp_unslash( $_GET['taxonomy'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Recommended
 				foreach ( self::$args['taxonomy_options'] as $key => $value ) {
 					if ( ! empty( self::$args['sections'][ $key ] ) && ! isset( self::$inited[ $key ] ) ) {
 
@@ -245,7 +247,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 
 			}
 
-			do_action( 'pb_settings_loaded' );
+			do_action( 'pb_settings_loaded' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		/**
@@ -360,7 +362,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 
 			$path     = '';
 			$file     = ltrim( $file, '/' );
-			$override = apply_filters( 'pb_settings_override', 'wpdk_settings-override' );
+			$override = apply_filters( 'pb_settings_override', 'wpdk_settings-override' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( file_exists( get_parent_theme_file_path( $override . '/' . $file ) ) ) {
 				$path = get_parent_theme_file_path( $override . '/' . $file );
@@ -436,7 +438,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			}
 
 			// Include all framework fields
-			$fields = apply_filters( 'pb_settings_fields', array(
+			$fields = apply_filters( 'pb_settings_fields', array( // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				'accordion',
 				'background',
 				'backup',
@@ -589,7 +591,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 
 			}
 
-			if ( ! apply_filters( 'pb_settings_enqueue_assets', self::$enqueue ) ) {
+			if ( ! apply_filters( 'pb_settings_enqueue_assets', self::$enqueue ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				return;
 			}
 
@@ -601,11 +603,11 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			wp_enqueue_script( 'wp-color-picker' );
 
 			// Font awesome 4 and 5 loader
-			if ( apply_filters( 'pb_settings_fa4', false ) ) {
-				wp_enqueue_style( 'wpdk_settings-fa', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), '4.7.0', 'all' );
+			if ( apply_filters( 'pb_settings_fa4', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+				wp_enqueue_style( 'wpdk_settings-fa', 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css', array(), '4.7.0', 'all' ); // phpcs:ignore PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent
 			} else {
-				wp_enqueue_style( 'wpdk_settings-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), '5.15.5', 'all' );
-				wp_enqueue_style( 'wpdk_settings-fa5-v4-shims', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/v4-shims.min.css', array(), '5.15.5', 'all' );
+				wp_enqueue_style( 'wpdk_settings-fa5', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css', array(), '5.15.5', 'all' ); // phpcs:ignore PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent
+				wp_enqueue_style( 'wpdk_settings-fa5-v4-shims', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/v4-shims.min.css', array(), '5.15.5', 'all' ); // phpcs:ignore PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent
 			}
 
 			$version = defined( 'PB_CLEAN_CACHE' ) && PB_CLEAN_CACHE ? time() : self::$version;
@@ -624,13 +626,13 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			wp_enqueue_script( 'pb_settings', self::include_plugin_url( 'assets/js/main.js' ), array( 'wpdk_settings-plugins' ), $version, true );
 
 			// Main variables
-			wp_localize_script( 'pb_settings', 'pb_settings_vars', array(
-				'color_palette' => apply_filters( 'pb_settings_color_palette', array() ),
+			wp_localize_script( 'pb_settings', 'pb_settings_vars', array( 
+				'color_palette' => apply_filters( 'pb_settings_color_palette', array() ), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				'i18n'          => array(
-					'confirm'         => esc_html__( 'Are you sure?' ),
-					'typing_text'     => esc_html__( 'Please enter %s or more characters' ),
-					'searching_text'  => esc_html__( 'Searching...' ),
-					'no_results_text' => esc_html__( 'No results found.' ),
+					'confirm'         => esc_html__( 'Are you sure?', 'woc-order-alert' ),
+					'typing_text'     => esc_html__( 'Please enter %s or more characters', 'woc-order-alert' ), //phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+					'searching_text'  => esc_html__( 'Searching...', 'woc-order-alert' ),
+					'no_results_text' => esc_html__( 'No results found.', 'woc-order-alert' ),
 				),
 			) );
 
@@ -652,7 +654,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 				}
 			}
 
-			do_action( 'pb_settings_enqueue' );
+			do_action( 'pb_settings_enqueue' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 
@@ -680,7 +682,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 
 					$query['display'] = 'swap';
 
-					wp_enqueue_style( 'wpdk_settings-google-web-fonts', esc_url( add_query_arg( $query, '//fonts.googleapis.com/css' ) ), array(), null );
+					wp_enqueue_style( 'wpdk_settings-google-web-fonts', esc_url( add_query_arg( $query, '//fonts.googleapis.com/css' ) ), array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 
 				}
 
@@ -692,7 +694,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 						$fonts[] = $family . ( ( ! empty( $styles ) ) ? ':' . implode( ',', $styles ) : '' );
 					}
 
-					wp_enqueue_script( 'wpdk_settings-google-web-fonts', esc_url( '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js' ), array(), null );
+					wp_enqueue_script( 'wpdk_settings-google-web-fonts', esc_url( '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js' ), array(), null ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion, WordPress.WP.EnqueuedResourceParameters.NotInFooter, PluginCheck.CodeAnalysis.EnqueuedResourceOffloading.OffloadedContent
 
 					wp_localize_script( 'wpdk_settings-google-web-fonts', 'WebFontConfig', array( 'google' => array( 'families' => $fonts ) ) );
 
@@ -705,7 +707,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 		// Add admin body class
 		public static function add_admin_body_class( $classes ) {
 
-			if ( apply_filters( 'pb_settings_fa4', false ) ) {
+			if ( apply_filters( 'pb_settings_fa4', false ) ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 				$classes .= 'wpdk_settings-fa5-shims';
 			}
 
@@ -717,7 +719,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 		public static function add_custom_css() {
 
 			if ( ! empty( self::$css ) ) {
-				echo '<style type="text/css">' . wp_strip_all_tags( self::$css ) . '</style>';
+				echo '<style type="text/css">' . wp_strip_all_tags( self::$css ) . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 
 		}
@@ -731,7 +733,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 				$field_type = $field['type'];
 
 				$field            = array();
-				$field['content'] = esc_html__( 'Oops! Not allowed.' ) . ' <strong>(' . $field_type . ')</strong>';
+				$field['content'] = esc_html__( 'Oops! Not allowed.', 'woc-order-alert' ) . ' <strong>(' . $field_type . ')</strong>';
 				$field['type']    = 'notice';
 				$field['style']   = 'danger';
 
@@ -771,7 +773,7 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 			}
 
 			// These attributes has been sanitized above.
-			echo '<div class="wpdk_settings-field wpdk_settings-field-' . esc_attr( $field_type . $is_pseudo . $class . $visible . $has_availability ) . '"' . $depend . '>';
+			echo '<div class="wpdk_settings-field wpdk_settings-field-' . esc_attr( $field_type . $is_pseudo . $class . $visible . $has_availability ) . '"' . $depend . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if ( ! empty( $field_type ) ) {
 
@@ -795,11 +797,11 @@ if ( ! class_exists( 'WPDK_Settings' ) ) {
 
 					do_action( 'WPDK_Settings/after_field/field_' . ( $field['id'] ?? '' ) );
 				} else {
-					echo '<p>' . esc_html__( 'Field not found!' ) . '</p>';
+					echo '<p>' . esc_html__( 'Field not found!', 'woc-order-alert' ) . '</p>';
 				}
 
 			} else {
-				echo '<p>' . esc_html__( 'Field not found!' ) . '</p>';
+				echo '<p>' . esc_html__( 'Field not found!', 'woc-order-alert' ) . '</p>';
 			}
 
 			echo ( ! empty( $field['title'] ) ) ? '</div>' : '';

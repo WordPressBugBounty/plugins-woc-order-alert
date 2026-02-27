@@ -8,6 +8,8 @@
  *
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WPDK_Settings_Abstract' ) ) {
 	abstract class WPDK_Settings_Abstract {
 
@@ -19,7 +21,7 @@ if ( ! class_exists( 'WPDK_Settings_Abstract' ) ) {
 			// Collect output css and typography
 			if ( ! empty( $this->args['output_css'] ) || ! empty( $this->args['enqueue_webfont'] ) ) {
 				add_action( 'wp_enqueue_scripts', array( $this, 'collect_output_css_and_typography' ), 10 );
-				WPDK_Settings::$css = apply_filters( "pb_settings_{$this->unique}_output_css", WPDK_Settings::$css, $this );
+				WPDK_Settings::$css = apply_filters( "pb_settings_{$this->unique}_output_css", WPDK_Settings::$css, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 			}
 
 		}

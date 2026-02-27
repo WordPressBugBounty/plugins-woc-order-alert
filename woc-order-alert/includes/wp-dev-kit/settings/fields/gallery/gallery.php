@@ -17,14 +17,14 @@ if ( ! class_exists( 'WPDK_Settings_Field_gallery' ) ) {
     public function render() {
 
       $args = wp_parse_args( $this->field, array(
-        'add_title'   => esc_html__( 'Add Gallery' ),
-        'edit_title'  => esc_html__( 'Edit Gallery' ),
-        'clear_title' => esc_html__( 'Clear' ),
+        'add_title'   => esc_html__( 'Add Gallery', 'woc-order-alert' ),
+        'edit_title'  => esc_html__( 'Edit Gallery', 'woc-order-alert' ),
+        'clear_title' => esc_html__( 'Clear', 'woc-order-alert' ),
       ) );
 
       $hidden = ( empty( $this->value ) ) ? ' hidden' : '';
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<ul>';
       if ( ! empty( $this->value ) ) {
@@ -39,12 +39,12 @@ if ( ! class_exists( 'WPDK_Settings_Field_gallery' ) ) {
       }
       echo '</ul>';
 
-      echo '<a href="#" class="button button-primary wpdk_settings-button">'. $args['add_title'] .'</a>';
-      echo '<a href="#" class="button wpdk_settings-edit-gallery'. esc_attr( $hidden ) .'">'. $args['edit_title'] .'</a>';
-      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings-clear-gallery'. esc_attr( $hidden ) .'">'. $args['clear_title'] .'</a>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>';
+      echo '<a href="#" class="button button-primary wpdk_settings-button">'. $args['add_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button wpdk_settings-edit-gallery'. esc_attr( $hidden ) .'">'. $args['edit_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings-clear-gallery'. esc_attr( $hidden ) .'">'. $args['clear_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

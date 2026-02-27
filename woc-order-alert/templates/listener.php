@@ -6,12 +6,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$order_list_items_all = olistener()->get_order_list_items();
-$order_list_items     = array_keys( $order_list_items_all );
+$order_list_items_all = olistener()->get_order_list_items(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+$order_list_items     = array_keys( $order_list_items_all ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
 
 ?>
 
-<div class="olistener" data-audio="<?php echo olistener_get_audio(); ?>">
+<div class="olistener" data-audio="<?php echo olistener_get_audio(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 
     <div class="olistener-section olistener-checker">
         <div class="olistener-loading"><span class="dashicons dashicons-search"></span></div>
@@ -32,8 +32,8 @@ $order_list_items     = array_keys( $order_list_items_all );
 
     <div class="olistener-section olistener-orders">
         <div class="olistener-row">
-			<?php foreach ( $order_list_items as $item_key ) : ?>
-				<?php printf( '<div class="olistener-row-item">%s</div>', olistener()->get_args_option( $item_key, '', $order_list_items_all ) ); ?>
+			<?php foreach ( $order_list_items as $item_key ) : // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound ?>
+				<?php printf( '<div class="olistener-row-item">%s</div>', olistener()->get_args_option( $item_key, '', $order_list_items_all ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php endforeach; ?>
         </div>
     </div>

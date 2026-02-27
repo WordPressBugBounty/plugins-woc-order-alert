@@ -8,7 +8,7 @@
  *
  */
 if ( ! function_exists( 'pb_settings_array_search' ) ) {
-  function pb_settings_array_search( $array, $key, $value ) {
+  function pb_settings_array_search( $array, $key, $value ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
 
     $results = array();
 
@@ -37,7 +37,7 @@ if ( ! function_exists( 'pb_settings_array_search' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_timeout' ) ) {
-  function pb_settings_timeout( $timenow, $starttime, $timeout = 30 ) {
+  function pb_settings_timeout( $timenow, $starttime, $timeout = 30 ) { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
     return ( ( $timenow - $starttime ) < $timeout ) ? true : false;
   }
 }
@@ -51,7 +51,7 @@ if ( ! function_exists( 'pb_settings_timeout' ) ) {
  *
  */
 if ( ! function_exists( 'pb_settings_wp_editor_api' ) ) {
-  function pb_settings_wp_editor_api() {
+  function pb_settings_wp_editor_api() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
     global $wp_version;
     return version_compare( $wp_version, '4.8', '>=' );
   }

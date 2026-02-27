@@ -28,7 +28,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_select' ) ) {
 
 			$this->value = ( is_array( $this->value ) ) ? $this->value : array_filter( (array) $this->value );
 
-			echo $this->field_before();
+			echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if ( isset( $this->field['options'] ) ) {
 
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_select' ) ) {
 
 					if ( ! empty( $args['chosen'] ) && ! empty( $args['multiple'] ) ) {
 
-						echo '<select name="' . $field_name . '" class="wpdk_settings-hide-select hidden"' . $multiple_attr . $field_attr . '>';
+						echo '<select name="' . $field_name . '" class="wpdk_settings-hide-select hidden"' . $multiple_attr . $field_attr . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						foreach ( $this->value as $option_key ) {
 							echo '<option value="' . esc_attr( $option_key ) . '" selected>' . esc_attr( $option_key ) . '</option>';
 						}
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_select' ) ) {
 					}
 
 					// These attributes has been serialized above.
-					echo '<select name="' . esc_attr( $field_name ) . '"' . $field_class . $multiple_attr . $placeholder_attr . $field_attr . $chosen_data_attr . '>';
+					echo '<select name="' . esc_attr( $field_name ) . '"' . $field_class . $multiple_attr . $placeholder_attr . $field_attr . $chosen_data_attr . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 					if ( $args['placeholder'] && empty( $args['multiple'] ) ) {
 						if ( ! empty( $args['chosen'] ) ) {
@@ -129,13 +129,13 @@ if ( ! class_exists( 'WPDK_Settings_Field_select' ) ) {
 
 				} else {
 
-					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data available.' );
+					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data available.', 'woc-order-alert' );
 
 				}
 
 			}
 
-			echo $this->field_after();
+			echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		}
 

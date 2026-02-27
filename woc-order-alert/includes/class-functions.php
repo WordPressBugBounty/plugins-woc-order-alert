@@ -83,7 +83,7 @@ if ( ! class_exists( 'Olistener_functions' ) ) {
 				$is_success = $is_success ? 'success' : 'error';
 			}
 
-			printf( '<div class="notice notice-%s %s"><p>%s</p></div>', $is_success, $is_dismissible ? 'is-dismissible' : '', $message );
+			printf( '<div class="notice notice-%1$s %2$s"><p>%3$s</p></div>', esc_attr( $is_success ), $is_dismissible ? 'is-dismissible' : '', wp_kses_post( $message ) );
 		}
 
 		/**
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Olistener_functions' ) ) {
 			$option_val = get_option( $option_key, $default_val );
 			$option_val = empty( $option_val ) ? $default_val : $option_val;
 
-			return apply_filters( 'woc_filters_option_' . $option_key, $option_val );
+			return apply_filters( 'woc_filters_option_' . $option_key, $option_val ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		/**
@@ -125,7 +125,7 @@ if ( ! class_exists( 'Olistener_functions' ) ) {
 			$meta_value = get_post_meta( $post_id, $meta_key, true );
 			$meta_value = empty( $meta_value ) ? $default : $meta_value;
 
-			return apply_filters( 'woc_filters_get_meta', $meta_value, $meta_key, $post_id, $default );
+			return apply_filters( 'woc_filters_get_meta', $meta_value, $meta_key, $post_id, $default ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 		}
 
 		/**

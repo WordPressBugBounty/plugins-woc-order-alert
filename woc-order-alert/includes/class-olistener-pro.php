@@ -2,6 +2,8 @@
 
 use WPDK\Utils;
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'OlistenerPro' ) ) {
 	class OlistenerPro {
 
@@ -40,7 +42,7 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 		public function apply_pro_settings( $should_notify, $order_id, $order = null ) {
 
 			// Debug: Log the function call
-			error_log('OlistenerPro::apply_pro_settings called for order ID: ' . $order_id);
+			error_log('OlistenerPro::apply_pro_settings called for order ID: ' . $order_id); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 
 			// Remove the activation check that might be blocking the logic
 			// The PRO functionality should work regardless of activation status for testing
@@ -56,7 +58,7 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 			$order              = $order ?: wc_get_order( $order_id );
 			
 			if (!$order instanceof WC_Order) {
-				error_log('OlistenerPro - Invalid order object for ID: ' . $order_id);
+				error_log('OlistenerPro - Invalid order object for ID: ' . $order_id); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				return $should_notify;
 			}
 			
@@ -169,25 +171,25 @@ if ( ! class_exists( 'OlistenerPro' ) ) {
 			$rules_relation = (array) Utils::get_option('olistener_rules_relation', array());
 			
 			// Debug: Log the summary and rules
-			error_log('OlistenerPro - Summary: ' . print_r($summary, true));
-			error_log('OlistenerPro - Rules Relation: ' . print_r($rules_relation, true));
+			error_log('OlistenerPro - Summary: ' . print_r($summary, true)); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			error_log('OlistenerPro - Rules Relation: ' . print_r($rules_relation, true)); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log, WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			
 			// If no rules are selected, return true if any condition is met
 			if (empty($rules_relation)) {
 				$result = in_array(true, $summary);
-				error_log('OlistenerPro - No rules selected, result: ' . ($result ? 'true' : 'false'));
+				error_log('OlistenerPro - No rules selected, result: ' . ($result ? 'true' : 'false')); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				return $result;
 			}
 
 			// Check if all selected rules are satisfied
 			foreach ($rules_relation as $rule) {
 				if (!isset($summary[$rule]) || !$summary[$rule]) {
-					error_log('OlistenerPro - Rule "' . $rule . '" failed or not set');
+					error_log('OlistenerPro - Rule "' . $rule . '" failed or not set'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 					return false;
 				}
 			}
 
-			error_log('OlistenerPro - All rules passed, returning true');
+			error_log('OlistenerPro - All rules passed, returning true'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 			return true;
 		}
 	}

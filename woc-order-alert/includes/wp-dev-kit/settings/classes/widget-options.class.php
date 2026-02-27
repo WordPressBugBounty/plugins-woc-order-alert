@@ -28,7 +28,7 @@ if ( ! class_exists( 'WPDK_Settings_Widget' ) ) {
       $control_ops = array();
 
       $this->unique = $key;
-      $this->args   = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params, $this->args ), $this );
+      $this->args   = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params, $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
       // Set control options
       if ( ! empty( $this->args['width'] ) ) {
@@ -45,8 +45,8 @@ if ( ! class_exists( 'WPDK_Settings_Widget' ) ) {
       }
 
       // Set filters
-      $widget_ops  = apply_filters( "pb_settings_{$this->unique}_widget_ops", $widget_ops, $this );
-      $control_ops = apply_filters( "pb_settings_{$this->unique}_control_ops", $control_ops, $this );
+      $widget_ops  = apply_filters( "pb_settings_{$this->unique}_widget_ops", $widget_ops, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+      $control_ops = apply_filters( "pb_settings_{$this->unique}_control_ops", $control_ops, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
       parent::__construct( $this->unique, esc_attr( $this->args['title'] ), $widget_ops, $control_ops );
 
@@ -127,9 +127,9 @@ if ( ! class_exists( 'WPDK_Settings_Widget' ) ) {
         }
       }
 
-      $new_instance = apply_filters( "pb_settings_{$this->unique}_save", $new_instance, $this->args, $this );
+      $new_instance = apply_filters( "pb_settings_{$this->unique}_save", $new_instance, $this->args, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-      do_action( "pb_settings_{$this->unique}_save_before", $new_instance, $this->args, $this );
+      do_action( "pb_settings_{$this->unique}_save_before", $new_instance, $this->args, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
       return $new_instance;
 

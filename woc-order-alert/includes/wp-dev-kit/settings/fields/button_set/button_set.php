@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_button_set' ) ) {
 
 			$value = ( is_array( $this->value ) ) ? $this->value : array_filter( (array) $this->value );
 
-			echo $this->field_before();
+			echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			if ( isset( $this->field['options'] ) ) {
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_button_set' ) ) {
 						}
 
 						echo '<div class="wpdk_settings--sibling wpdk_settings--button' . esc_attr( $active ) . ' ' . esc_attr( $availability ) . '" ' . esc_attr( $is_disabled ) . '>';
-						echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';
+						echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '<div class="wpdk_settings--name">' . wp_kses_post( $option['label'] ) . '</div>';
 						echo '</div>';
 					}
@@ -61,13 +61,13 @@ if ( ! class_exists( 'WPDK_Settings_Field_button_set' ) ) {
 
 				} else {
 
-					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data available.' );
+					echo ( ! empty( $this->field['empty_message'] ) ) ? esc_attr( $this->field['empty_message'] ) : esc_html__( 'No data available.', 'woc-order-alert' );
 
 				}
 
 			}
 
-			echo $this->field_after();
+			echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		}
 

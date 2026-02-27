@@ -24,8 +24,8 @@ if ( ! class_exists( 'WPDK_Settings_Profile_Options' ) ) {
 		public function __construct( $key, $params ) {
 
 			$this->unique   = $key;
-			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			add_action( 'admin_init', array( $this, 'add_profile_options' ) );
 
@@ -206,9 +206,9 @@ if ( ! class_exists( 'WPDK_Settings_Profile_Options' ) ) {
 
 			}
 
-			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $user_id, $this );
+			$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $user_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_before", $data, $user_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_before", $data, $user_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			if ( empty( $data ) ) {
 
@@ -236,9 +236,9 @@ if ( ! class_exists( 'WPDK_Settings_Profile_Options' ) ) {
 
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $user_id, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $user_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-			do_action( "pb_settings_{$this->unique}_save_after", $data, $user_id, $this );
+			do_action( "pb_settings_{$this->unique}_save_after", $data, $user_id, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 	}

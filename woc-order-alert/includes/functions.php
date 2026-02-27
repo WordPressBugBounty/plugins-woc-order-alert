@@ -8,6 +8,7 @@
 
 use WPDK\Utils;
 
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'olistener' ) ) {
 	function olistener() {
@@ -91,6 +92,7 @@ if ( ! function_exists( 'olistener_popup_html' ) ) {
 			$order_customers[] = sprintf( '<a href="%s">#%s</a>', admin_url( 'edit.php?post_type=shop_order&_customer_user=' . $order_customer_id ), $order->get_billing_first_name() );
 		}
 
-		return sprintf( esc_html__( 'Congratulations! You have received order(%s) from %s' ), implode( ', ', $order_ids ), implode( ', ', $order_customers ) );
+		/* translators: 1: Order IDs, 2: Customer Names */
+		return sprintf( esc_html__( 'Congratulations! You have received order(%1$s) from %2$s', 'woc-order-alert' ), implode( ', ', $order_ids ), implode( ', ', $order_customers ) );
 	}
 }

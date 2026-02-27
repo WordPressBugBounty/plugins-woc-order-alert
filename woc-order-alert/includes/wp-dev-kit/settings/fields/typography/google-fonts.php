@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; // Cannot access directly.
 
 if ( ! function_exists( 'pb_settings_get_google_fonts' ) ) {
-  function pb_settings_get_google_fonts() {
+  function pb_settings_get_google_fonts() { // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
     return [
       'ABeeZee'=>[['normal','italic'],['latin']],
       'Abel'=>[['normal'],['latin']],

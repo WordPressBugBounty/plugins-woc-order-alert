@@ -17,23 +17,23 @@ if ( ! class_exists( 'WPDK_Settings_Field_icon' ) ) {
     public function render() {
 
       $args = wp_parse_args( $this->field, array(
-        'button_title' => esc_html__( 'Add Icon' ),
-        'remove_title' => esc_html__( 'Remove Icon' ),
+        'button_title' => esc_html__( 'Add Icon', 'woc-order-alert' ),
+        'remove_title' => esc_html__( 'Remove Icon', 'woc-order-alert' ),
       ) );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       $nonce  = wp_create_nonce( 'pb_settings_icon_nonce' );
       $hidden = ( empty( $this->value ) ) ? ' hidden' : '';
 
       echo '<div class="wpdk_settings-icon-select">';
       echo '<span class="wpdk_settings-icon-preview'. esc_attr( $hidden ) .'"><i class="'. esc_attr( $this->value ) .'"></i></span>';
-      echo '<a href="#" class="button button-primary wpdk_settings-icon-add" data-nonce="'. esc_attr( $nonce ) .'">'. $args['button_title'] .'</a>';
-      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings-icon-remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'" class="wpdk_settings-icon-value"'. $this->field_attributes() .' />';
+      echo '<a href="#" class="button button-primary wpdk_settings-icon-add" data-nonce="'. esc_attr( $nonce ) .'">'. $args['button_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings-icon-remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'" class="wpdk_settings-icon-value"'. $this->field_attributes() .' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 
@@ -50,11 +50,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_icon' ) ) {
             <div class="wpdk_settings-modal-overlay"></div>
             <div class="wpdk_settings-modal-inner">
               <div class="wpdk_settings-modal-title">
-                <?php esc_html_e( 'Add Icon' ); ?>
+                <?php esc_html_e( 'Add Icon', 'woc-order-alert' ); ?>
                 <div class="wpdk_settings-modal-close wpdk_settings-icon-close"></div>
               </div>
               <div class="wpdk_settings-modal-header">
-                <input type="text" placeholder="<?php esc_html_e( 'Search...' ); ?>" class="wpdk_settings-icon-search" />
+                <input type="text" placeholder="<?php esc_html_e( 'Search...', 'woc-order-alert' ); ?>" class="wpdk_settings-icon-search" />
               </div>
               <div class="wpdk_settings-modal-content">
                 <div class="wpdk_settings-modal-loading"><div class="wpdk_settings-loading"></div></div>

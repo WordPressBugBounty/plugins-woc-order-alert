@@ -5,6 +5,8 @@
 
 namespace WPDK;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Class Utils
  *

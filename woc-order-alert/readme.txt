@@ -5,7 +5,7 @@ Tags: Order checker, order listener, Order Alert, WooCommerce Audio Alert, Order
 Requires at least: 5.6
 Tested up to: 6.9
 Tested up to WooCommerce: 10.4
-Stable tag: 3.6.1
+Stable tag: 3.6.3
 Requires PHP: 7.1
 Requires WooCommerce: 7.2
 Text Domain: woc-order-alert
@@ -97,6 +97,16 @@ The plugin is optimized for minimal performance impact, using efficient AJAX cal
 5. Enable Custom Notification Rules (Pro)
 
 == Changelog ==
+
+= 3.6.3 - 24/02/2026 =
+* TWEAK - Enhanced WooCommerce REST API compatibility by removing unused permission overrides
+
+= 3.6.2 - 21/02/2026 =
+* SECURITY - Fixed critical vulnerability that bypassed WooCommerce authentication
+* SECURITY - Removed unauthorized access to WooCommerce REST API endpoints
+* SECURITY - Restored proper permission checks for products, coupons, and customer data
+* SECURITY - Prevented unauthorized read/write access to store resources
+* UPDATE - WooCommerce compatibility updated to 10.5
 
 = 3.6.1 - 30/12/2025 =
 * CRITICAL FIX - Fixed PRO settings conditions not working after activation

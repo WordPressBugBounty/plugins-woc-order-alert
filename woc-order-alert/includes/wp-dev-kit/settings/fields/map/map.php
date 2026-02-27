@@ -20,9 +20,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_map' ) ) {
     public function render() {
 
       $args              = wp_parse_args( $this->field, array(
-        'placeholder'    => esc_html__( 'Search...' ),
-        'latitude_text'  => esc_html__( 'Latitude' ),
-        'longitude_text' => esc_html__( 'Longitude' ),
+        'placeholder'    => esc_html__( 'Search...', 'woc-order-alert' ),
+        'latitude_text'  => esc_html__( 'Latitude', 'woc-order-alert' ),
+        'longitude_text' => esc_html__( 'Longitude', 'woc-order-alert' ),
         'address_field'  => '',
         'height'         => '',
       ) );
@@ -46,17 +46,17 @@ if ( ! class_exists( 'WPDK_Settings_Field_map' ) ) {
       $style_attr  = ( ! empty( $args['height'] ) ) ? ' style="min-height:'. esc_attr( $args['height'] ) .';"' : '';
       $placeholder = ( ! empty( $args['placeholder'] ) ) ? array( 'placeholder' => $args['placeholder'] ) : '';
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       if ( empty( $args['address_field'] ) ) {
         echo '<div class="wpdk_settings--map-search">';
-        echo '<input type="text" name="'. esc_attr( $this->field_name( '[address]' ) ) .'" value="'. esc_attr( $value['address'] ) .'"'. $this->field_attributes( $placeholder ) .' />';
+        echo '<input type="text" name="'. esc_attr( $this->field_name( '[address]' ) ) .'" value="'. esc_attr( $value['address'] ) .'"'. $this->field_attributes( $placeholder ) .' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo '</div>';
       } else {
         echo '<div class="wpdk_settings--address-field" data-address-field="'. esc_attr( $args['address_field'] ) .'"></div>';
       }
 
-      echo '<div class="wpdk_settings--map-osm-wrap"><div class="wpdk_settings--map-osm" data-map="'. esc_attr( json_encode( $settings ) ) .'"'. $style_attr .'></div></div>';
+      echo '<div class="wpdk_settings--map-osm-wrap"><div class="wpdk_settings--map-osm" data-map="'. esc_attr( json_encode( $settings ) ) .'"'. $style_attr .'></div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings--map-inputs">';
 
@@ -74,7 +74,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_map' ) ) {
 
       echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[zoom]' ) ) .'" value="'. esc_attr( $value['zoom'] ) .'" class="wpdk_settings--zoom" />';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

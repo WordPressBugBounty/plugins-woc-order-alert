@@ -4,14 +4,14 @@
 	Plugin Name: Order Notification for WooCommerce
 	Plugin URI: https://stackwc.com/plugins/woc-order-alert/
 	Description: Play sound as notification instantly on new order in your WooCommerce store.
-	Version: 3.6.1
+	Version: 3.6.3
 	Author: StackWC
 	Author URI: https://stackwc.com/
 	Text Domain: woc-order-alert
 	License: GPLv3 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	WC requires at least: 7.2
-    WC tested up to: 10.4
+    WC tested up to: 10.5
     Requires Plugins: woocommerce
 */
 global $wpdb;
@@ -23,12 +23,13 @@ defined( 'OLISTENER_PLUGIN_LINK' ) || define( 'OLISTENER_PLUGIN_LINK', 'https://
 defined( 'OLISTENER_TICKET_URL' ) || define( 'OLISTENER_TICKET_URL', 'https://stackwc.com/support/' );
 defined( 'OLISTENER_DOCS_URL' ) || define( 'OLISTENER_DOCS_URL', 'https://stackwc.com/plugins/woc-order-alert/' );
 defined( 'OLISTENER_CONTACT_URL' ) || define( 'OLISTENER_CONTACT_URL', 'https://stackwc.com/support/' );
-defined( 'OLISTENER_REVIEW_URL' ) || define( 'OLISTENER_REVIEW_URL', 'https://wordpress.org/support/plugin/woc-order-alert/reviews/?filter=5#new-post' );
+defined( 'OLISTENER_REVIEW_URL' ) || define( 'OLISTENER_REVIEW_URL', 'https://wordpress.org/support/plugin/woc-order-alert/reviews/' );
 defined( 'OLISTENER_DATA_TABLE' ) || define( 'OLISTENER_DATA_TABLE', $wpdb->prefix . 'woocommerce_order_listener' );
-defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.6.1' );
+defined( 'OLISTENER_PLUGIN_VERSION' ) || define( 'OLISTENER_PLUGIN_VERSION', '3.6.3' );
 if ( !function_exists( 'olistener_is_plugin_active' ) ) {
     function olistener_is_plugin_active(  $plugin  ) {
         return ( function_exists( 'is_plugin_active' ) ? is_plugin_active( $plugin ) : in_array( $plugin, apply_filters( 'active_plugins', (array) get_option( 'active_plugins', array() ) ) ) || is_multisite() && array_key_exists( $plugin, (array) get_site_option( 'active_sitewide_plugins', array() ) ) );
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
     }
 
 }
@@ -50,7 +51,6 @@ if ( !function_exists( 'olistener_declare_woocommerce_compatibility' ) ) {
 
 }
 add_action( 'before_woocommerce_init', 'olistener_declare_woocommerce_compatibility' );
-
 if ( !function_exists( 'olistener_pro_cleanup' ) ) {
     function olistener_pro_cleanup() {
         wcoa_fs()->add_action( 'after_uninstall', 'wcoa_fs_uninstall_cleanup' );
@@ -101,6 +101,7 @@ if ( !class_exists( 'Olistener_main' ) ) {
          */
         function admin_scripts() {
             wp_enqueue_script(
+                // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.NotInFooter
                 'olistener-admin',
                 plugins_url( '/assets/admin/js/scripts.js', __FILE__ ),
                 array('jquery', 'jquery-migrate'),
@@ -112,7 +113,9 @@ if ( !class_exists( 'Olistener_main' ) ) {
                 'interval'    => olistener()->get_interval(),
             ) );
             wp_enqueue_style( 'tool-tip', OLISTENER_PLUGIN_URL . 'assets/tool-tip.min.css' );
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
             wp_enqueue_style( 'olistener-admin', OLISTENER_PLUGIN_URL . 'assets/admin/css/style.css', self::$_script_version );
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
         }
 
         /**
@@ -150,26 +153,28 @@ global $olistener_wpdk;
 if ( !function_exists( 'wcoa_fs' ) ) {
     // Create a helper function for easy SDK access.
     function wcoa_fs() {
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         global $wcoa_fs;
         if ( !isset( $wcoa_fs ) ) {
             // Include Freemius SDK.
             require_once dirname( __FILE__ ) . '/vendor/freemius/start.php';
             $wcoa_fs = fs_dynamic_init( array(
-                'id'             => '18996',
-                'slug'           => 'woc-order-alert',
-                'premium_slug'   => 'woc-order-alert-pro',
-                'type'           => 'plugin',
-                'public_key'     => 'pk_b77a9468217d8ee52cb14f8aa7949',
-                'is_premium'     => false,
-                'premium_suffix' => 'Pro',
-                'has_addons'     => false,
-                'has_paid_plans' => true,
-                'menu'           => array(
+                'id'               => '18996',
+                'slug'             => 'woc-order-alert',
+                'premium_slug'     => 'woc-order-alert-pro',
+                'type'             => 'plugin',
+                'public_key'       => 'pk_b77a9468217d8ee52cb14f8aa7949',
+                'is_premium'       => false,
+                'premium_suffix'   => 'Pro',
+                'has_addons'       => false,
+                'has_paid_plans'   => true,
+                'menu'             => array(
                     'first-path' => 'plugins.php',
                     'contact'    => false,
                     'support'    => false,
                 ),
-                'is_live'        => true,
+                'is_live'          => true,
+                'is_org_compliant' => true,
             ) );
         }
         return $wcoa_fs;
@@ -179,9 +184,7 @@ if ( !function_exists( 'wcoa_fs' ) ) {
     wcoa_fs();
     // Signal that SDK was initiated.
     do_action( 'wcoa_fs_loaded' );
+    // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 }
 wpdk_init_olistener();
 Olistener_main::instance();
-add_action( 'init', function () {
-    load_plugin_textdomain( 'woc-order-alert', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-} );

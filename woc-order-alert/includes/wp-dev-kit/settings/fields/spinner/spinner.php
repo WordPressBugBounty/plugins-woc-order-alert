@@ -23,11 +23,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_spinner' ) ) {
         'unit' => '',
       ) );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-      echo '<div class="wpdk_settings--spin"><input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'wpdk_settings-input-number' ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" data-unit="'. esc_attr( $args['unit'] ) .'" step="any" /></div>';
+      echo '<div class="wpdk_settings--spin"><input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'wpdk_settings-input-number' ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" data-unit="'. esc_attr( $args['unit'] ) .'" step="any" /></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

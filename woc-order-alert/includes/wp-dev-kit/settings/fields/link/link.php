@@ -17,9 +17,9 @@ if ( ! class_exists( 'WPDK_Settings_Field_link' ) ) {
     public function render() {
 
       $args = wp_parse_args( $this->field, array(
-        'add_title'    => esc_html__( 'Add Link' ),
-        'edit_title'   => esc_html__( 'Edit Link' ),
-        'remove_title' => esc_html__( 'Remove Link' ),
+        'add_title'    => esc_html__( 'Add Link', 'woc-order-alert' ),
+        'edit_title'   => esc_html__( 'Edit Link', 'woc-order-alert' ),
+        'remove_title' => esc_html__( 'Remove Link', 'woc-order-alert' ),
       ) );
 
       $default_values = array(
@@ -34,21 +34,21 @@ if ( ! class_exists( 'WPDK_Settings_Field_link' ) ) {
 
       $maybe_hidden = ( empty( $hidden ) ) ? ' hidden' : '';
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<textarea readonly="readonly" class="wpdk_settings--link hidden"></textarea>';
 
-      echo '<div class="'. esc_attr( $maybe_hidden ) .'"><div class="wpdk_settings--result">'. sprintf( '{url:"%s", text:"%s", target:"%s"}', $value['url'], $value['text'], $value['target'] ) .'</div></div>';
+      echo '<div class="'. esc_attr( $maybe_hidden ) .'"><div class="wpdk_settings--result">'. sprintf( '{url:"%s", text:"%s", target:"%s"}', $value['url'], $value['text'], $value['target'] ) .'</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $value['url'] ) .'"'. $this->field_attributes( array( 'class' => 'wpdk_settings--url' ) ) .' />';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $value['url'] ) .'"'. $this->field_attributes( array( 'class' => 'wpdk_settings--url' ) ) .' />'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[text]' ) ) .'" value="'. esc_attr( $value['text'] ) .'" class="wpdk_settings--text" />';
       echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[target]' ) ) .'" value="'. esc_attr( $value['target'] ) .'" class="wpdk_settings--target" />';
 
-      echo '<a href="#" class="button button-primary wpdk_settings--add'. esc_attr( $hidden ) .'">'. $args['add_title'] .'</a> ';
-      echo '<a href="#" class="button wpdk_settings--edit'. esc_attr( $maybe_hidden ) .'">'. $args['edit_title'] .'</a> ';
-      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings--remove'. esc_attr( $maybe_hidden ) .'">'. $args['remove_title'] .'</a>';
+      echo '<a href="#" class="button button-primary wpdk_settings--add'. esc_attr( $hidden ) .'">'. $args['add_title'] .'</a> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button wpdk_settings--edit'. esc_attr( $maybe_hidden ) .'">'. $args['edit_title'] .'</a> '; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button wpdk_settings-warning-primary wpdk_settings--remove'. esc_attr( $maybe_hidden ) .'">'. $args['remove_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

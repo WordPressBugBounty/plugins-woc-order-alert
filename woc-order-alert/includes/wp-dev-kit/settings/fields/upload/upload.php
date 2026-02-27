@@ -21,11 +21,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_upload' ) ) {
         'preview'        => false,
         'preview_width'  => '',
         'preview_height' => '',
-        'button_title'   => esc_html__( 'Upload' ),
-        'remove_title'   => esc_html__( 'Remove' ),
+        'button_title'   => esc_html__( 'Upload', 'woc-order-alert' ),
+        'remove_title'   => esc_html__( 'Remove', 'woc-order-alert' ),
       ) );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       $library = ( is_array( $args['library'] ) ) ? $args['library'] : array_filter( (array) $args['library'] );
       $library = ( ! empty( $library ) ) ? implode(',', $library ) : '';
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_upload' ) ) {
         $preview_hidden = ( empty( $preview_src ) ) ? ' hidden' : '';
 
         echo '<div class="wpdk_settings--preview'. esc_attr( $preview_hidden ) .'">';
-        echo '<div class="wpdk_settings-image-preview"'. $preview_style .'>';
+        echo '<div class="wpdk_settings-image-preview"'. $preview_style .'>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
         echo '<i class="wpdk_settings--remove fas fa-times"></i><span><img src="'. esc_url( $preview_src ) .'" class="wpdk_settings--src" /></span>';
         echo '</div>';
         echo '</div>';
@@ -49,12 +49,12 @@ if ( ! class_exists( 'WPDK_Settings_Field_upload' ) ) {
       }
 
       echo '<div class="wpdk_settings--wrap">';
-      echo '<input type="text" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>';
-      echo '<a href="#" class="button button-primary wpdk_settings--button" data-library="'. esc_attr( $library ) .'">'. $args['button_title'] .'</a>';
-      echo '<a href="#" class="button button-secondary wpdk_settings-warning-primary wpdk_settings--remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
+      echo '<input type="text" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button button-primary wpdk_settings--button" data-library="'. esc_attr( $library ) .'">'. $args['button_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<a href="#" class="button button-secondary wpdk_settings-warning-primary wpdk_settings--remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
   }

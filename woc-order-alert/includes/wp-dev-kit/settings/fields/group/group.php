@@ -20,7 +20,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_group' ) ) {
 				'max'                       => 0,
 				'min'                       => 0,
 				'fields'                    => array(),
-				'button_title'              => esc_html__( 'Add New' ),
+				'button_title'              => esc_html__( 'Add New', 'woc-order-alert' ),
 				'accordion_title_prefix'    => '',
 				'accordion_title_number'    => false,
 				'accordion_title_auto'      => true,
@@ -38,18 +38,18 @@ if ( ! class_exists( 'WPDK_Settings_Field_group' ) ) {
 
 			if ( preg_match( '/' . preg_quote( '[' . $this->field['id'] . ']' ) . '/', $this->unique ) ) {
 
-				echo '<div class="wpdk_settings-notice wpdk_settings-notice-danger">' . esc_html__( 'Error: Field ID conflict.' ) . '</div>';
+				echo '<div class="wpdk_settings-notice wpdk_settings-notice-danger">' . esc_html__( 'Error: Field ID conflict.', 'woc-order-alert' ) . '</div>';
 
 			} else {
 
-				echo $this->field_before();
+				echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				echo '<div class="wpdk_settings-cloneable-item wpdk_settings-cloneable-hidden" data-depend-id="' . esc_attr( $this->field['id'] ) . '">';
 
 				echo '<div class="wpdk_settings-cloneable-helper">';
 				echo '<i class="wpdk_settings-cloneable-sort fas fa-arrows-alt"></i>';
 				echo '<i class="wpdk_settings-cloneable-clone far fa-clone"></i>';
-				echo '<i class="wpdk_settings-cloneable-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?' ) . '"></i>';
+				echo '<i class="wpdk_settings-cloneable-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?', 'woc-order-alert' ) . '"></i>';
 				echo '</div>';
 
 				echo '<h4 class="wpdk_settings-cloneable-title">';
@@ -104,7 +104,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_group' ) ) {
 						echo '<div class="wpdk_settings-cloneable-helper">';
 						echo '<i class="wpdk_settings-cloneable-sort fas fa-arrows-alt"></i>';
 						echo '<i class="wpdk_settings-cloneable-clone far fa-clone"></i>';
-						echo '<i class="wpdk_settings-cloneable-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?' ) . '"></i>';
+						echo '<i class="wpdk_settings-cloneable-remove wpdk_settings-confirm fas fa-times" data-confirm="' . esc_html__( 'Are you sure to delete this item?', 'woc-order-alert' ) . '"></i>';
 						echo '</div>';
 
 						echo '<h4 class="wpdk_settings-cloneable-title">';
@@ -138,11 +138,11 @@ if ( ! class_exists( 'WPDK_Settings_Field_group' ) ) {
 
 				echo '</div>';
 
-				echo '<div class="wpdk_settings-cloneable-alert wpdk_settings-cloneable-max">' . esc_html__( 'You cannot add more.' ) . '</div>';
-				echo '<div class="wpdk_settings-cloneable-alert wpdk_settings-cloneable-min">' . esc_html__( 'You cannot remove more.' ) . '</div>';
-				echo '<a href="#" class="button button-primary wpdk_settings-cloneable-add">' . $args['button_title'] . '</a>';
+				echo '<div class="wpdk_settings-cloneable-alert wpdk_settings-cloneable-max">' . esc_html__( 'You cannot add more.', 'woc-order-alert' ) . '</div>';
+				echo '<div class="wpdk_settings-cloneable-alert wpdk_settings-cloneable-min">' . esc_html__( 'You cannot remove more.', 'woc-order-alert' ) . '</div>';
+				echo '<a href="#" class="button button-primary wpdk_settings-cloneable-add">' . $args['button_title'] . '</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-				echo $this->field_after();
+				echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			}
 

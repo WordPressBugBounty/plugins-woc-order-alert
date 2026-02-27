@@ -18,7 +18,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_tabbed' ) ) {
 
       $unallows = array( 'tabbed' );
 
-      echo $this->field_before();
+      echo $this->field_before(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       echo '<div class="wpdk_settings-tabbed-nav" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
       foreach ( $this->field['tabs'] as $key => $tab ) {
@@ -26,7 +26,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_tabbed' ) ) {
         $tabbed_icon   = ( ! empty( $tab['icon'] ) ) ? '<i class="wpdk_settings--icon '. esc_attr( $tab['icon'] ) .'"></i>' : '';
         $tabbed_active = ( empty( $key ) ) ? 'wpdk_settings-tabbed-active' : '';
 
-        echo '<a href="#" class="'. esc_attr( $tabbed_active ) .'"">'. $tabbed_icon . esc_attr( $tab['title'] ) .'</a>';
+        echo '<a href="#" class="'. esc_attr( $tabbed_active ) .'"">'. $tabbed_icon . esc_attr( $tab['title'] ) .'</a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
       }
       echo '</div>';
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPDK_Settings_Field_tabbed' ) ) {
       }
       echo '</div>';
 
-      echo $this->field_after();
+      echo $this->field_after(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
     }
 

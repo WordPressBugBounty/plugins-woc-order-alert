@@ -7,6 +7,9 @@
  * @version 1.0.0
  *
  */
+
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 	class WPDK_Settings_Options extends WPDK_Settings_Abstract {
 
@@ -92,8 +95,8 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 		public function __construct( $key, $params = array() ) {
 
 			$this->unique   = $key;
-			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this );
+			$this->args     = apply_filters( "pb_settings_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+			$this->sections = apply_filters( "pb_settings_{$this->unique}_sections", $params['sections'], $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			// run only is admin panel options, avoid performance loss
 			$this->pre_tabs     = $this->pre_tabs( $this->sections );
@@ -227,7 +230,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 			$result = $this->set_options( true );
 
 			if ( ! $result ) {
-				wp_send_json_error( array( 'error' => esc_html__( 'Error while saving the changes.' ) ) );
+				wp_send_json_error( array( 'error' => esc_html__( 'Error while saving the changes.', 'woc-order-alert' ) ) );
 			} else {
 				wp_send_json_success( array( 'notice' => $this->notice, 'errors' => $this->errors ) );
 			}
@@ -266,7 +269,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 			// XSS ok.
 			// No worries, This "POST" requests is sanitizing in the below foreach. see #L337 - #L341
-			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : map_deep( $_POST, 'sanitize_text_field' );
+			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : map_deep( $_POST, 'sanitize_text_field' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			// Set variables.
 			$data      = array();
@@ -287,7 +290,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 					$import_data  = json_decode( wp_unslash( trim( $response['pb_settings_import_data'] ) ), true );
 					$options      = ( is_array( $import_data ) && ! empty( $import_data ) ) ? $import_data : array();
 					$importing    = true;
-					$this->notice = esc_html__( 'Settings successfully imported.' );
+					$this->notice = esc_html__( 'Settings successfully imported.', 'woc-order-alert' );
 
 				}
 
@@ -299,7 +302,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 						}
 					}
 
-					$this->notice = esc_html__( 'Default settings restored.' );
+					$this->notice = esc_html__( 'Default settings restored.', 'woc-order-alert' );
 
 				} else if ( ! empty( $transient['reset_section'] ) && ! empty( $section_id ) ) {
 
@@ -315,7 +318,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 					$data = wp_parse_args( $data, $this->options );
 
-					$this->notice = esc_html__( 'Default settings restored.' );
+					$this->notice = esc_html__( 'Default settings restored.', 'woc-order-alert' );
 
 				} else {
 
@@ -371,18 +374,18 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 				}
 
-				$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $this );
+				$data = apply_filters( "pb_settings_{$this->unique}_save", $data, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
-				do_action( "pb_settings_{$this->unique}_save_before", $data, $this );
+				do_action( "pb_settings_{$this->unique}_save_before", $data, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 				$this->options = $data;
 
 				$this->save_options( $data );
 
-				do_action( "pb_settings_{$this->unique}_save_after", $data, $this );
+				do_action( "pb_settings_{$this->unique}_save_after", $data, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 				if ( empty( $this->notice ) ) {
-					$this->notice = esc_html__( 'Settings saved.' );
+					$this->notice = esc_html__( 'Settings saved.', 'woc-order-alert' );
 				}
 
 				return true;
@@ -406,7 +409,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 				update_option( $this->unique, $data );
 			}
 
-			do_action( "pb_settings_{$this->unique}_saved", $data, $this );
+			do_action( "pb_settings_{$this->unique}_saved", $data, $this ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 
@@ -537,7 +540,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 			$nav_type      = ( $this->args['nav'] === 'inline' ) ? 'inline' : 'normal';
 			$form_action   = ( $this->args['form_action'] ) ? $this->args['form_action'] : '';
 
-			do_action( 'pb_settings_options_before' );
+			do_action( 'pb_settings_options_before' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 			echo '<div class="pb_settings wpdk_settings-options' . esc_attr( $theme . $class . $wrapper_class ) . '" data-slug="' . esc_attr( $this->args['menu_slug'] ) . '" data-unique="' . esc_attr( $this->unique ) . '">';
 
@@ -559,8 +562,8 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 			echo '<div class="wpdk_settings-header-left">';
 			echo '<h1>' .
 			     esc_html( $this->args['framework_title'] ) .
-			     ( empty( $product_version ) ? '' : sprintf( '<a href="%s" target="_blank" class="wpdk_settings-version-free">Version %s</a>', $product_url, $product_version ) ) .
-			     ( empty( $product_version_pro ) ? '' : sprintf( '<a href="%s" target="_blank" class="wpdk_settings-version-pro">Pro %s</a>', $product_url, $product_version_pro ) ) .
+			     ( empty( $product_version ) ? '' : sprintf( '<a href="%s" target="_blank" class="wpdk_settings-version-free">Version %s</a>', $product_url, $product_version ) ) . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			     ( empty( $product_version_pro ) ? '' : sprintf( '<a href="%s" target="_blank" class="wpdk_settings-version-pro">Pro %s</a>', $product_url, $product_version_pro ) ) . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			     '</h1>';
 			echo '</div>';
 
@@ -571,11 +574,11 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 			echo '<div class="wpdk_settings-form-result wpdk_settings-form-success ' . esc_attr( $notice_class ) . '">' . esc_html( $notice_text ) . '</div>';
 
-			echo ( $this->args['show_form_warning'] ) ? '<div class="wpdk_settings-form-result wpdk_settings-form-warning">' . esc_html__( 'Save your changes!' ) . '</div>' : '';
+			echo ( $this->args['show_form_warning'] ) ? '<div class="wpdk_settings-form-result wpdk_settings-form-warning">' . esc_html__( 'Save your changes!', 'woc-order-alert' ) . '</div>' : '';
 
-			echo ( $has_nav && $this->args['show_all_options'] ) ? '<div class="wpdk_settings-expand-all" title="' . esc_html__( 'show all settings' ) . '"><i class="fas fa-outdent"></i></div>' : '';
+			echo ( $has_nav && $this->args['show_all_options'] ) ? '<div class="wpdk_settings-expand-all" title="' . esc_html__( 'show all settings', 'woc-order-alert' ) . '"><i class="fas fa-outdent"></i></div>' : '';
 
-			echo ( $this->args['show_search'] ) ? '<div class="wpdk_settings-search"><input type="text" name="wpdk_settings-search" placeholder="' . esc_html__( 'Search...' ) . '" autocomplete="off" /></div>' : '';
+			echo ( $this->args['show_search'] ) ? '<div class="wpdk_settings-search"><input type="text" name="wpdk_settings-search" placeholder="' . esc_html__( 'Search...', 'woc-order-alert' ) . '" autocomplete="off" /></div>' : '';
 
 			echo '<div class="wpdk_settings-buttons">';
 
@@ -585,9 +588,9 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 				}
 			}
 
-			echo '<input type="submit" name="' . esc_attr( $this->unique ) . '[_nonce][save]" class="button button-primary wpdk_settings-top-save wpdk_settings-save' . esc_attr( $ajax_class ) . '" value="' . esc_html__( 'Save' ) . '" data-save="' . esc_html__( 'Saving...' ) . '">';
-			echo ( $this->args['show_reset_section'] ) ? '<input type="submit" name="pb_settings_transient[reset_section]" class="button button-secondary wpdk_settings-reset-section wpdk_settings-confirm" value="' . esc_html__( 'Reset Section' ) . '" data-confirm="' . esc_html__( 'Are you sure to reset this section options?' ) . '">' : '';
-			echo ( $this->args['show_reset_all'] ) ? '<input type="submit" name="pb_settings_transient[reset]" class="button wpdk_settings-warning-primary wpdk_settings-reset-all wpdk_settings-confirm" value="' . ( ( $this->args['show_reset_section'] ) ? esc_html__( 'Reset All' ) : esc_html__( 'Reset' ) ) . '" data-confirm="' . esc_html__( 'Are you sure you want to reset all settings to default values?' ) . '">' : '';
+			echo '<input type="submit" name="' . esc_attr( $this->unique ) . '[_nonce][save]" class="button button-primary wpdk_settings-top-save wpdk_settings-save' . esc_attr( $ajax_class ) . '" value="' . esc_html__( 'Save', 'woc-order-alert' ) . '" data-save="' . esc_html__( 'Saving...', 'woc-order-alert' ) . '">';
+			echo ( $this->args['show_reset_section'] ) ? '<input type="submit" name="pb_settings_transient[reset_section]" class="button button-secondary wpdk_settings-reset-section wpdk_settings-confirm" value="' . esc_html__( 'Reset Section', 'woc-order-alert' ) . '" data-confirm="' . esc_html__( 'Are you sure to reset this section options?', 'woc-order-alert' ) . '">' : '';
+			echo ( $this->args['show_reset_all'] ) ? '<input type="submit" name="pb_settings_transient[reset]" class="button wpdk_settings-warning-primary wpdk_settings-reset-all wpdk_settings-confirm" value="' . ( ( $this->args['show_reset_section'] ) ? esc_html__( 'Reset All', 'woc-order-alert' ) : esc_html__( 'Reset', 'woc-order-alert' ) ) . '" data-confirm="' . esc_html__( 'Are you sure you want to reset all settings to default values?', 'woc-order-alert' ) . '">' : '';
 			echo '</div>';
 
 			echo '</div>';
@@ -684,7 +687,7 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 				} elseif ( $section['external'] && isset( $section['id'] ) ) {
 					do_action( 'WPDK_Settings/section/' . $section['id'], $section );
 				} else {
-					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.' ) . '</div>';
+					echo '<div class="wpdk_settings-no-option">' . esc_html__( 'No data available.', 'woc-order-alert' ) . '</div>';
 				}
 
 				echo '</div>';
@@ -707,13 +710,13 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 				if ( ! empty( $this->args['show_footer_buttons'] ) ) {
 					echo '<div class="wpdk_settings-buttons">';
-					echo '<input type="submit" name="pb_settings_transient[save]" class="button button-primary wpdk_settings-save' . esc_attr( $ajax_class ) . '" value="' . esc_html__( 'Save' ) . '" data-save="' . esc_html__( 'Saving...' ) . '">';
-					echo ( $this->args['show_reset_section'] ) ? '<input type="submit" name="pb_settings_transient[reset_section]" class="button button-secondary wpdk_settings-reset-section wpdk_settings-confirm" value="' . esc_html__( 'Reset Section' ) . '" data-confirm="' . esc_html__( 'Are you sure to reset this section options?' ) . '">' : '';
-					echo ( $this->args['show_reset_all'] ) ? '<input type="submit" name="pb_settings_transient[reset]" class="button wpdk_settings-warning-primary wpdk_settings-reset-all wpdk_settings-confirm" value="' . ( ( $this->args['show_reset_section'] ) ? esc_html__( 'Reset All' ) : esc_html__( 'Reset' ) ) . '" data-confirm="' . esc_html__( 'Are you sure you want to reset all settings to default values?' ) . '">' : '';
+					echo '<input type="submit" name="pb_settings_transient[save]" class="button button-primary wpdk_settings-save' . esc_attr( $ajax_class ) . '" value="' . esc_html__( 'Save', 'woc-order-alert' ) . '" data-save="' . esc_html__( 'Saving...', 'woc-order-alert' ) . '">';
+					echo ( $this->args['show_reset_section'] ) ? '<input type="submit" name="pb_settings_transient[reset_section]" class="button button-secondary wpdk_settings-reset-section wpdk_settings-confirm" value="' . esc_html__( 'Reset Section', 'woc-order-alert' ) . '" data-confirm="' . esc_html__( 'Are you sure to reset this section options?', 'woc-order-alert' ) . '">' : '';
+					echo ( $this->args['show_reset_all'] ) ? '<input type="submit" name="pb_settings_transient[reset]" class="button wpdk_settings-warning-primary wpdk_settings-reset-all wpdk_settings-confirm" value="' . ( ( $this->args['show_reset_section'] ) ? esc_html__( 'Reset All', 'woc-order-alert' ) : esc_html__( 'Reset', 'woc-order-alert' ) ) . '" data-confirm="' . esc_html__( 'Are you sure you want to reset all settings to default values?', 'woc-order-alert' ) . '">' : '';
 					echo '</div>';
 				}
 
-				echo ( ! empty( $this->args['footer_text'] ) ) ? '<div class="wpdk_settings-copyright">' . $this->args['footer_text'] . '</div>' : '';
+				echo ( ! empty( $this->args['footer_text'] ) ) ? '<div class="wpdk_settings-copyright">' . $this->args['footer_text'] . '</div>' : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				echo '<div class="clear"></div>';
 				echo '</div>';
@@ -726,11 +729,11 @@ if ( ! class_exists( 'WPDK_Settings_Options' ) ) {
 
 			echo '<div class="clear"></div>';
 
-			echo ( ! empty( $this->args['footer_after'] ) ) ? $this->args['footer_after'] : '';
+			echo ( ! empty( $this->args['footer_after'] ) ) ? $this->args['footer_after'] : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			echo '</div>';
 
-			do_action( 'pb_settings_options_after' );
+			do_action( 'pb_settings_options_after' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
 
 		}
 	}
